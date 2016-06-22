@@ -32,7 +32,7 @@
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
 
-            <include layout="@layout/toolbar" />
+            <include layout="@layout/forecast_toolbar" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
