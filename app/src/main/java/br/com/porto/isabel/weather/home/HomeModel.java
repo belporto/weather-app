@@ -1,7 +1,9 @@
 package br.com.porto.isabel.weather.home;
 
+import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,9 +13,11 @@ public class HomeModel implements HomeContract.ModelContract {
 
     private HomeContract.PresenterContract mPresenter;
     private WeatherAPI mWeatherAPI;
+    private UserCityRepository mUserCityRepository;
 
-    public HomeModel(WeatherAPI weatherAPI) {
+    public HomeModel(WeatherAPI weatherAPI, UserCityRepository userCityRepository) {
         mWeatherAPI = weatherAPI;
+        mUserCityRepository = userCityRepository;
     }
 
     @Override
@@ -22,8 +26,9 @@ public class HomeModel implements HomeContract.ModelContract {
     }
 
     @Override
-    public void requestDailyData(int cityId) {
-        mWeatherAPI.getDaily(cityId, new Callback<Forecast>() {
+    public void requestDailyData() {
+        City currentCity = getCurrentCity();
+        mWeatherAPI.getDaily(currentCity.getId(), new Callback<Forecast>() {
 
             @Override
             public void onResponse(Call<Forecast> call, Response<Forecast> response) {
@@ -43,8 +48,9 @@ public class HomeModel implements HomeContract.ModelContract {
     }
 
     @Override
-    public void requestCurrentData(int cityId) {
-        mWeatherAPI.getCurrent(cityId, new Callback<Current>() {
+    public void requestCurrentData() {
+        City currentCity = getCurrentCity();
+        mWeatherAPI.getCurrent(currentCity.getId(), new Callback<Current>() {
             @Override
             public void onResponse(Call<Current> call, Response<Current> response) {
                 if (response.isSuccessful()) {
@@ -60,5 +66,10 @@ public class HomeModel implements HomeContract.ModelContract {
                 mPresenter.onRequestCurrentWithError();
             }
         });
+    }
+
+
+    private City getCurrentCity() {
+        return mUserCityRepository.getCurrentCity();
     }
 }

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
+import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import butterknife.ButterKnife;
 
@@ -23,7 +25,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
 
-        HomeModel model = new HomeModel(new WeatherAPI());
+        UserCityRepository userCityRepository = MemoryUserCityRepository.getInstance();
+
+        HomeModel model = new HomeModel(new WeatherAPI(), userCityRepository);
         mPresenter = new HomePresenter(this, model);
         model.setPresenter(mPresenter);
 

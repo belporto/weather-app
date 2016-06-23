@@ -1,6 +1,7 @@
 package br.com.porto.isabel.weather.home;
 
 
+import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
 
@@ -34,9 +35,9 @@ public interface HomeContract {
 
         void setPresenter(PresenterContract presenter);
 
-        void requestDailyData(int cityId);
+        void requestDailyData();
 
-        void requestCurrentData(int cityId);
+        void requestCurrentData();
     }
 
 }

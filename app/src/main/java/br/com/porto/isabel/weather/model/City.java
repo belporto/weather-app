@@ -20,4 +20,27 @@ public class City {
     @SerializedName("coord")
     private Coordinator coordinator;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public Integer getPopulation() {
+        return population;
+    }
+
+    public Coordinator getCoordinator() {
+        return coordinator;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
