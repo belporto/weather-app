@@ -55,6 +55,12 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
     @BindView(R.id.home_daily_recycler_view)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.home_progress)
+    View mProgress;
+
+    @BindView(R.id.home_content)
+    View mContent;
+
     private Current mCurrent;
 
     private Forecast mForecast;
@@ -102,12 +108,14 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
 
     @Override
     public void showProgress() {
-        //TODO:
+        mContent.setVisibility(View.GONE);
+        mProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        mProgress.setVisibility(View.GONE);
+        mContent.setVisibility(View.VISIBLE);
     }
 
     @Override
