@@ -18,6 +18,8 @@ public interface HomeContract {
         void onRequestCurrentWithSuccess(Current current);
 
         void onRequestCurrentWithError();
+
+        void onRefresh();
     }
 
     interface ViewContract {
@@ -29,6 +31,8 @@ public interface HomeContract {
         void showForecast(Forecast forecast);
 
         void hideProgress();
+
+        void hideSwipe();
     }
 
     interface ModelContract {

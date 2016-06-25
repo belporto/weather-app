@@ -1,5 +1,6 @@
 package br.com.porto.isabel.weather.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,7 +25,7 @@ import br.com.porto.isabel.weather.view.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment implements HomeContract.ViewContract {
+public class HomeFragment extends Fragment implements HomeContract.ViewContract, DrawerContract.FragmentContract {
 
     private static final String FORECAST = "FORECAST";
     private static final String CURRENT = "CURRENT";
@@ -68,6 +69,8 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
     private IconUtil mIconUtil;
 
     private DailyAdapter mAdapter;
+
+    private DrawerContract.ActivityContract mActivityContract;
 
 
     @Nullable
@@ -126,7 +129,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
         temperatureTextView.setText(current.getCurrentTemperature().intValue() + "°C");
         weatherImage.setImageResource(mIconUtil.getWeatherImageResource(current.getWeatherCode()));
         humidityView.setValue(current.getHumidity().intValue() + " %");
-        windView.setValue(current.getWindSpeed().toString() + " km/h   " + current.getWindDegree() + " ° ");
+        windView.setValue(current.getWindSpeed().intValue() + " km/h   " + current.getWindDegree().intValue() + " ° ");
         pressureView.setValue(current.getPressure().intValue() + " hPa");
     }
 
@@ -137,10 +140,26 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
         outState.putParcelable(FORECAST, mForecast);
     }
 
+
     @Override
     public void showForecast(Forecast forecast) {
         mForecast = forecast;
         mAdapter.setDailyList(forecast.getDailyList());
     }
 
+    @Override
+    public void onRefresh() {
+        mPresenter.onRefresh();
+    }
+
+    @Override
+    public void hideSwipe() {
+        mActivityContract.hideSwipe();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivityContract = (DrawerContract.ActivityContract) context;
+    }
 }

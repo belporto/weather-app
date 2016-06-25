@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        SwipeRefreshLayout.OnRefreshListener,
+        DrawerContract.ActivityContract {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -24,6 +27,12 @@ public class DrawerActivity extends AppCompatActivity
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+
+    @BindView(R.id.drawer_swipe_refresh)
+    SwipeRefreshLayout mSwipeLayout;
+
+    private DrawerContract.FragmentContract mCurrentFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +49,27 @@ public class DrawerActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
+        HomeFragment fragment = new HomeFragment();
+        mCurrentFragment = fragment;
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new HomeFragment())
+                    .add(R.id.container, fragment)
                     .commit();
         }
 
+        mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setColorSchemeResources(R.color.colorPrimary);
+
+    }
+
+
+    @Override
+    public void onRefresh() {
+        mCurrentFragment.onRefresh();
+    }
+
+    public void hideSwipe() {
+        mSwipeLayout.setRefreshing(false);
     }
 
     @Override

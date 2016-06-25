@@ -9,6 +9,7 @@ public class HomePresenter implements HomeContract.PresenterContract {
 
     private HomeContract.ViewContract mView;
     private HomeContract.ModelContract mModel;
+    private boolean mSwipe;
     public HomePresenter(HomeContract.ViewContract view, HomeContract.ModelContract model) {
         mView = view;
         mModel = model;
@@ -32,9 +33,19 @@ public class HomePresenter implements HomeContract.PresenterContract {
     }
 
     @Override
+    public void onRefresh() {
+        mSwipe = true;
+        mModel.requestCurrentData();
+    }
+
+    @Override
     public void onRequestDailyWithSuccess(Forecast forecast) {
         mView.showForecast(forecast);
-        mView.hideProgress();
+        if(mSwipe) {
+           mView.hideSwipe();
+        }else{
+            mView.hideProgress();
+        }
     }
 
     @Override
