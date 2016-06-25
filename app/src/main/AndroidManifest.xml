@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".forecast.ForecastActivity" />
-        <activity android:name=".home.HomeActivity">
+        <activity android:name=".home.DrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
