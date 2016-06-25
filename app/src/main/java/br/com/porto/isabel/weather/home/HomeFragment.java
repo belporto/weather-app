@@ -35,6 +35,10 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
     @BindView(R.id.home_weather_image)
     ImageView weatherImage;
 
+    private static final String CURRENT = "CURRENT";
+
+    private Current mCurrent;
+
 
     @Nullable
     @Override
@@ -42,13 +46,22 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
 
+        Current current = null;
+        if(savedInstanceState != null){
+            current = (Current) savedInstanceState.get(CURRENT);
+        }
+
         UserCityRepository userCityRepository = MemoryUserCityRepository.getInstance();
 
         HomeModel model = new HomeModel(new WeatherAPI(), userCityRepository);
         mPresenter = new HomePresenter(this, model);
         model.setPresenter(mPresenter);
 
-        mPresenter.init();
+        if(current != null){
+            showCurrentData(current);
+        }else{
+            mPresenter.init();
+        }
 
         return view;
     }
@@ -65,6 +78,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
 
     @Override
     public void showCurrentData(Current current) {
+        mCurrent = current;
         cityNameTextView.setText(current.getCityName());
         weatherDescriptionTextView.setText(current.getWeatherDescription());
         temperatureTextView.setText(current.getCurrentTemperature().toString() + "°");
@@ -77,6 +91,12 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
         String drawableName = "ic_" + code;
         @DrawableRes int drawableResourceId = this.getResources().getIdentifier(drawableName, "drawable", getActivity().getPackageName());
         return drawableResourceId;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(CURRENT, mCurrent);
     }
 
     @Override
