@@ -1,11 +1,14 @@
 package br.com.porto.isabel.weather.home;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.model.Current;
@@ -13,11 +16,25 @@ import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment implements HomeContract.ViewContract {
 
     private HomeContract.PresenterContract mPresenter;
+
+    @BindView(R.id.home_city_name)
+    TextView cityNameTextView;
+
+    @BindView(R.id.home_weather_description)
+    TextView weatherDescriptionTextView;
+
+    @BindView(R.id.home_temperature)
+    TextView temperatureTextView;
+
+    @BindView(R.id.home_weather_image)
+    ImageView weatherImage;
+
 
     @Nullable
     @Override
@@ -48,7 +65,18 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
 
     @Override
     public void showCurrentData(Current current) {
+        cityNameTextView.setText(current.getCityName());
+        weatherDescriptionTextView.setText(current.getWeatherDescription());
+        temperatureTextView.setText(current.getCurrentTemperature().toString() + "°");
+        weatherImage.setImageResource(getWeatherImageResource(current.getWeatherCode()));
+    }
 
+    private
+    @DrawableRes
+    int getWeatherImageResource(String code) {
+        String drawableName = "ic_" + code;
+        @DrawableRes int drawableResourceId = this.getResources().getIdentifier(drawableName, "drawable", getActivity().getPackageName());
+        return drawableResourceId;
     }
 
     @Override
