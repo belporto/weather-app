@@ -1,12 +1,9 @@
 package br.com.porto.isabel.weather.home;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,9 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        SwipeRefreshLayout.OnRefreshListener,
-        DrawerContract.ActivityContract {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String CURRENT_FRAGMENT_TAG = "currentFragmentTag";
     @BindView(R.id.toolbar)
@@ -30,11 +25,6 @@ public class DrawerActivity extends AppCompatActivity
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
-    @BindView(R.id.drawer_swipe_refresh)
-    SwipeRefreshLayout mSwipeLayout;
-
-    private Fragment mCurrentFragment;
 
 
     @Override
@@ -54,28 +44,10 @@ public class DrawerActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             HomeFragment fragment = new HomeFragment();
-            mCurrentFragment = fragment;
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, fragment, CURRENT_FRAGMENT_TAG)
                     .commit();
-        } else {
-            mCurrentFragment = getSupportFragmentManager().findFragmentByTag(CURRENT_FRAGMENT_TAG);
         }
-
-        mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeResources(R.color.colorPrimary);
-
-    }
-
-
-    @Override
-    public void onRefresh() {
-        DrawerContract.FragmentContract fragmentContract = (DrawerContract.FragmentContract) mCurrentFragment;
-        fragmentContract.onRefresh();
-    }
-
-    public void hideSwipe() {
-        mSwipeLayout.setRefreshing(false);
     }
 
     @Override
@@ -105,8 +77,4 @@ public class DrawerActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
 }

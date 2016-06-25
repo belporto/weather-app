@@ -1,9 +1,9 @@
 package br.com.porto.isabel.weather.home;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,7 +25,8 @@ import br.com.porto.isabel.weather.view.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment implements HomeContract.ViewContract, DrawerContract.FragmentContract {
+public class HomeFragment extends Fragment implements HomeContract.ViewContract,
+        SwipeRefreshLayout.OnRefreshListener {
 
     private static final String FORECAST = "FORECAST";
     private static final String CURRENT = "CURRENT";
@@ -62,6 +63,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     @BindView(R.id.home_content)
     View mContent;
 
+    @BindView(R.id.home_swipe_refresh)
+    SwipeRefreshLayout mSwipeLayout;
+
     private Current mCurrent;
 
     private Forecast mForecast;
@@ -69,9 +73,6 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     private IconUtil mIconUtil;
 
     private DailyAdapter mAdapter;
-
-    private DrawerContract.ActivityContract mActivityContract;
-
 
     @Nullable
     @Override
@@ -105,6 +106,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         } else {
             mPresenter.init();
         }
+
+        mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setColorSchemeResources(R.color.colorPrimary);
 
         return view;
     }
@@ -154,12 +158,8 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
 
     @Override
     public void hideSwipe() {
-        mActivityContract.hideSwipe();
+        mSwipeLayout.setRefreshing(false);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mActivityContract = (DrawerContract.ActivityContract) context;
-    }
+
 }
