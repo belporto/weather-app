@@ -1,7 +1,9 @@
 package br.com.porto.isabel.weather.home;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,6 +21,7 @@ public class DrawerActivity extends AppCompatActivity
         SwipeRefreshLayout.OnRefreshListener,
         DrawerContract.ActivityContract {
 
+    private static final String CURRENT_FRAGMENT_TAG = "currentFragmentTag";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -31,7 +34,7 @@ public class DrawerActivity extends AppCompatActivity
     @BindView(R.id.drawer_swipe_refresh)
     SwipeRefreshLayout mSwipeLayout;
 
-    private DrawerContract.FragmentContract mCurrentFragment;
+    private Fragment mCurrentFragment;
 
 
     @Override
@@ -49,12 +52,14 @@ public class DrawerActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        HomeFragment fragment = new HomeFragment();
-        mCurrentFragment = fragment;
         if (savedInstanceState == null) {
+            HomeFragment fragment = new HomeFragment();
+            mCurrentFragment = fragment;
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, fragment)
+                    .add(R.id.container, fragment, CURRENT_FRAGMENT_TAG)
                     .commit();
+        } else {
+            mCurrentFragment = getSupportFragmentManager().findFragmentByTag(CURRENT_FRAGMENT_TAG);
         }
 
         mSwipeLayout.setOnRefreshListener(this);
@@ -65,7 +70,8 @@ public class DrawerActivity extends AppCompatActivity
 
     @Override
     public void onRefresh() {
-        mCurrentFragment.onRefresh();
+        DrawerContract.FragmentContract fragmentContract = (DrawerContract.FragmentContract) mCurrentFragment;
+        fragmentContract.onRefresh();
     }
 
     public void hideSwipe() {
@@ -97,5 +103,10 @@ public class DrawerActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 }

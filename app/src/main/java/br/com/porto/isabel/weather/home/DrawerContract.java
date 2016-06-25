@@ -3,7 +3,7 @@ package br.com.porto.isabel.weather.home;
 
 public interface DrawerContract {
 
-    interface FragmentContract {
+    interface FragmentContract  {
         void onRefresh();
     }
 
