@@ -16,6 +16,7 @@ import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
+import br.com.porto.isabel.weather.view.DetailCustomView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -35,6 +36,15 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
     @BindView(R.id.home_weather_image)
     ImageView weatherImage;
 
+    @BindView(R.id.home_humidity_view)
+    DetailCustomView humidityView;
+
+    @BindView(R.id.home_wind_view)
+    DetailCustomView windView;
+
+    @BindView(R.id.home_pressure_view)
+    DetailCustomView pressureView;
+
     private static final String CURRENT = "CURRENT";
 
     private Current mCurrent;
@@ -47,7 +57,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
         ButterKnife.bind(this, view);
 
         Current current = null;
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             current = (Current) savedInstanceState.get(CURRENT);
         }
 
@@ -57,9 +67,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
         mPresenter = new HomePresenter(this, model);
         model.setPresenter(mPresenter);
 
-        if(current != null){
+        if (current != null) {
             showCurrentData(current);
-        }else{
+        } else {
             mPresenter.init();
         }
 
@@ -81,8 +91,14 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract 
         mCurrent = current;
         cityNameTextView.setText(current.getCityName());
         weatherDescriptionTextView.setText(current.getWeatherDescription());
-        temperatureTextView.setText(current.getCurrentTemperature().toString() + "°");
+        String temperature = String.valueOf(current.getCurrentTemperature().intValue());
+        temperatureTextView.setText(temperature + "°C");
         weatherImage.setImageResource(getWeatherImageResource(current.getWeatherCode()));
+        String humidity = String.valueOf(current.getHumidity().intValue());
+        humidityView.setValue(humidity + " %");
+        windView.setValue(current.getWindSpeed().toString() + " km/h   " + current.getWindDegree() + " ° ");
+        String pressure = String.valueOf(current.getPressure().intValue());
+        pressureView.setValue(pressure + " hPa");
     }
 
     private

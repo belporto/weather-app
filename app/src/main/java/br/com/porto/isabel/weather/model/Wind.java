@@ -14,6 +14,14 @@ public class Wind implements Parcelable {
     @SerializedName("deg")
     private Double mDegree;
 
+    public Double getSpeed() {
+        return mSpeed * 3.6;
+    }
+
+    public Double getDegree() {
+        return mDegree;
+    }
+
     @Override
     public int describeContents() {
         return 0;

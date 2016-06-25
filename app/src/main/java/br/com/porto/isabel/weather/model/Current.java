@@ -55,6 +55,18 @@ public class Current implements Parcelable {
         return mMain.getPressure();
     }
 
+    public Double getHumidity() {
+        return mMain.getHumidity();
+    }
+
+    public Double getWindSpeed() {
+        return mWind.getSpeed();
+    }
+
+    public Double getWindDegree() {
+        return mWind.getDegree();
+    }
+
 
     @Override
     public int describeContents() {
@@ -97,4 +109,6 @@ public class Current implements Parcelable {
             return new Current[size];
         }
     };
+
+
 }

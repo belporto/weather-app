@@ -32,6 +32,10 @@ public class Main implements Parcelable {
         return mPressure;
     }
 
+    public Double getHumidity() {
+        return mHumidity;
+    }
+
     @Override
     public int describeContents() {
         return 0;

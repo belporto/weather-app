@@ -1,11 +1,12 @@
 package br.com.porto.isabel.weather.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Isabel Porto on 22/06/2016.
- */
-public class Weather {
+
+public class Weather implements Parcelable {
 
     @SerializedName("id")
     private Integer mId;
@@ -26,4 +27,40 @@ public class Weather {
     public String getCode(){
         return mIcon;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(mId);
+        dest.writeString(mMain);
+        dest.writeString(mDescription);
+        dest.writeString(mIcon);
+    }
+
+    public Weather() {
+    }
+
+    protected Weather(Parcel in) {
+        mId = (Integer) in.readValue(Integer.class.getClassLoader());
+        mMain = in.readString();
+        mDescription = in.readString();
+        mIcon = in.readString();
+    }
+
+    public static final Parcelable.Creator<Weather> CREATOR = new Parcelable.Creator<Weather>() {
+        @Override
+        public Weather createFromParcel(Parcel source) {
+            return new Weather(source);
+        }
+
+        @Override
+        public Weather[] newArray(int size) {
+            return new Weather[size];
+        }
+    };
 }
