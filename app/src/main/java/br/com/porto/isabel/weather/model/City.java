@@ -6,41 +6,22 @@ import com.google.gson.annotations.SerializedName;
 public class City {
 
     @SerializedName("id")
-    private Integer id;
+    private Integer mId;
 
     @SerializedName("name")
-    private String name;
+    private String mName;
 
     @SerializedName("country")
-    private String country;
-
-    @SerializedName("population")
-    private Integer population;
+    private String mCountry;
 
     @SerializedName("coord")
-    private Coordinator coordinator;
+    private Coordinator mCoordinator;
 
     public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public Integer getPopulation() {
-        return population;
-    }
-
-    public Coordinator getCoordinator() {
-        return coordinator;
+        return mId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        mId = id;
     }
 }

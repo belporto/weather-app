@@ -6,17 +6,26 @@ import com.google.gson.annotations.SerializedName;
 public class Main {
 
     @SerializedName("temp")
-    private Double temperature;
+    private Double mTemperature;
 
     @SerializedName("humidity")
-    private Integer humidity;
+    private Double mHumidity;
 
     @SerializedName("pressure")
-    private Integer pressure;
+    private Double mPressure;
 
     @SerializedName("temp_min")
-    private Double tempMin;
+    private Double mTempMin;
 
     @SerializedName("temp_max")
-    private Double tempMax;
+    private Double mTempMax;
+
+
+    public Double getTemperature() {
+        return mTemperature;
+    }
+
+    public Double getPressure() {
+        return mPressure;
+    }
 }

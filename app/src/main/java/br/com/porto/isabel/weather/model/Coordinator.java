@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 public class Coordinator {
 
     @SerializedName("lat")
-    private Double lat;
+    private Double mLat;
 
     @SerializedName("lon")
-    private Double lon;
+    private Double mLong;
 
 }

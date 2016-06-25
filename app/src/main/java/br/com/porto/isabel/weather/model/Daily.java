@@ -32,5 +32,5 @@ public class Daily {
     private Double windDirection;
 
     @SerializedName("clouds")
-    private Integer clouds;
+    private Double clouds;
 }

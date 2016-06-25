@@ -8,14 +8,22 @@ import com.google.gson.annotations.SerializedName;
 public class Weather {
 
     @SerializedName("id")
-    private Integer id;
+    private Integer mId;
 
     @SerializedName("main")
-    private String main;
+    private String mMain;
 
     @SerializedName("description")
-    private String description;
+    private String mDescription;
 
     @SerializedName("icon")
-    private String icon;
+    private String mIcon;
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public String getCode(){
+        return mIcon;
+    }
 }
