@@ -10,15 +10,10 @@ public class HomePresenter implements HomeContract.PresenterContract {
     private HomeContract.ViewContract mView;
     private HomeContract.ModelContract mModel;
     private boolean mSwipe;
+
     public HomePresenter(HomeContract.ViewContract view, HomeContract.ModelContract model) {
         mView = view;
         mModel = model;
-    }
-
-    @Override
-    public void init() {
-        mView.showProgress();
-        mModel.requestCurrentData();
     }
 
     @Override
@@ -39,11 +34,23 @@ public class HomePresenter implements HomeContract.PresenterContract {
     }
 
     @Override
+    public void onCitySelected(City city) {
+        mView.showProgress();
+        mModel.selectCity(city);
+        mModel.requestCurrentData();
+    }
+
+    @Override
+    public void onCreateOptionsMenu() {
+        mView.showCityList(mModel.getUserCityList());
+    }
+
+    @Override
     public void onRequestDailyWithSuccess(Forecast forecast) {
         mView.showForecast(forecast);
-        if(mSwipe) {
-           mView.hideSwipe();
-        }else{
+        if (mSwipe) {
+            mView.hideSwipe();
+        } else {
             mView.hideProgress();
         }
     }

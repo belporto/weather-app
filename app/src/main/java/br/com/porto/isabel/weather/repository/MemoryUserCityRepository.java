@@ -1,7 +1,9 @@
 package br.com.porto.isabel.weather.repository;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.com.porto.isabel.weather.model.City;
@@ -13,8 +15,8 @@ public class MemoryUserCityRepository implements UserCityRepository {
 
     public static MemoryUserCityRepository instance;
 
-    public static MemoryUserCityRepository getInstance(){
-        if(instance == null){
+    public static MemoryUserCityRepository getInstance() {
+        if (instance == null) {
             instance = new MemoryUserCityRepository();
         }
         return instance;
@@ -24,8 +26,17 @@ public class MemoryUserCityRepository implements UserCityRepository {
         mCities = new HashMap<>();
         City city = new City();
         city.setId(2964574);
+        city.setName("Dublin");
+        city.setCountry("IR");
+
+        City city2 = new City();
+        city2.setId(5128638);
+        city2.setName("New York");
+        city2.setCountry("US");
+
         mCurrent = city;
         mCities.put(city.getId(), city);
+        mCities.put(city2.getId(), city2);
     }
 
     @Override
@@ -46,5 +57,10 @@ public class MemoryUserCityRepository implements UserCityRepository {
     @Override
     public void selectCity(Integer id) {
         mCurrent = mCities.get(id);
+    }
+
+    @Override
+    public List<City> getAll() {
+        return new ArrayList(mCities.values());
     }
 }

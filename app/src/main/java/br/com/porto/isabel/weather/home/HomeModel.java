@@ -1,5 +1,7 @@
 package br.com.porto.isabel.weather.home;
 
+import java.util.List;
+
 import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
@@ -66,6 +68,16 @@ public class HomeModel implements HomeContract.ModelContract {
                 mPresenter.onRequestCurrentWithError();
             }
         });
+    }
+
+    @Override
+    public List<City> getUserCityList() {
+        return mUserCityRepository.getAll();
+    }
+
+    @Override
+    public void selectCity(City city) {
+        mUserCityRepository.selectCity(city.getId());
     }
 
 

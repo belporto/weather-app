@@ -28,6 +28,14 @@ public class City implements Parcelable {
         mId = id;
     }
 
+    public void setName(String mName) {
+        this.mName = mName;
+    }
+
+    public void setCountry(String mCountry) {
+        this.mCountry = mCountry;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -62,4 +70,9 @@ public class City implements Parcelable {
             return new City[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return mName + " - " + mCountry;
+    }
 }
