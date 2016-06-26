@@ -4,14 +4,13 @@ package br.com.porto.isabel.weather.configuration;
 import java.util.List;
 
 import br.com.porto.isabel.weather.model.City;
+import br.com.porto.isabel.weather.view.CityTouchCallbackContract;
 
 public interface ConfigurationContract {
 
-    interface PresenterContract {
+    interface PresenterContract extends CityTouchCallbackContract {
 
         void init();
-
-        void onSwipe(City city);
     }
 
     interface ViewContract {

@@ -17,6 +17,7 @@ import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.view.CityListAdapter;
+import br.com.porto.isabel.weather.view.CityTouchCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -40,6 +41,10 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
         mPresenter = new ConfigurationPresenter(this, model);
         model.setPresenter(mPresenter);
 
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new CityTouchCallback(mAdapter, mPresenter, getActivity(), getResources(), 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
         mPresenter.init();
 
         return view;
@@ -54,25 +59,6 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
-
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                int position = viewHolder.getAdapterPosition();
-                City city = mAdapter.getItem(position);
-                mPresenter.onSwipe(city);
-                //Remove swiped item from list and notify the RecyclerView
-            }
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         return view;
     }
