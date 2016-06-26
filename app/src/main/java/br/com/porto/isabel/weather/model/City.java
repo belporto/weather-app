@@ -73,6 +73,6 @@ public class City implements Parcelable {
 
     @Override
     public String toString() {
-        return mName + " - " + mCountry;
+        return mName + ", " + mCountry;
     }
 }

@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.home;
+package br.com.porto.isabel.weather;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,7 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import br.com.porto.isabel.weather.R;
+import br.com.porto.isabel.weather.configuration.ConfigurationFragment;
+import br.com.porto.isabel.weather.home.HomeFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -67,8 +68,17 @@ public class DrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            getSupportFragmentManager().
+                    beginTransaction().
+                    replace(R.id.container, new HomeFragment()).
+                    addToBackStack(null).
+                    commit();
+
         } else if (id == R.id.nav_cities) {
+            getSupportFragmentManager().
+                    beginTransaction().
+                    replace(R.id.container, new ConfigurationFragment()).
+                    addToBackStack(null).commit();
 
         } else if (id == R.id.nav_forecast) {
 
