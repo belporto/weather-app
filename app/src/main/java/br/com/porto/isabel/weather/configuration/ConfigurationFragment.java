@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -24,6 +25,7 @@ import br.com.porto.isabel.weather.bus.BusProvider;
 import br.com.porto.isabel.weather.configuration.places.PlacesDialogFragment;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
+import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.view.UserCityListAdapter;
 import br.com.porto.isabel.weather.view.CityTouchCallback;
@@ -50,7 +52,7 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = configureView(inflater, container);
 
-        UserCityRepository userCityRepository = MemoryUserCityRepository.getInstance();
+        UserCityRepository userCityRepository = new SharedPreferencesUserCityRepository(getActivity(), new Gson());
 
         ConfigurationModel model = new ConfigurationModel(userCityRepository);
         mPresenter = new ConfigurationPresenter(this, model);

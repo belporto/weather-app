@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
@@ -27,7 +29,7 @@ import br.com.porto.isabel.weather.formatter.DateFormatter;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
-import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
+import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import br.com.porto.isabel.weather.view.DailyAdapter;
@@ -94,7 +96,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         View view = configureView(inflater, container);
         setHasOptionsMenu(true);
 
-        UserCityRepository userCityRepository = MemoryUserCityRepository.getInstance();
+        UserCityRepository userCityRepository = new SharedPreferencesUserCityRepository(getActivity(), new Gson());
 
         HomeModel model = new HomeModel(new WeatherAPI(), userCityRepository);
         mPresenter = new HomePresenter(this, model);
