@@ -18,6 +18,7 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
 
     private static final String USER_CITY_SHARED_PREFERENCES = "USER_CITY_SHARED_PREFERENCES";
     private static final String USER_CITIES_JSON = "USER_CITIES_JSON";
+    private static final String CURRENT_CITY = "CURRENT_CITY";
     private Map<String, UserCity> mCities;
     private UserCity mCurrent;
 
@@ -28,6 +29,7 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
         mSharedPreferences = context.getSharedPreferences(USER_CITY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         mGson = gson;
         mCities = getCities();
+        mCurrent = getCurrent();
 
         if (mCities == null) {
             setupDefaultCities();
@@ -54,6 +56,10 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
     @Override
     public void selectCity(String id) {
         mCurrent = mCities.get(id);
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        String json = mGson.toJson(mCurrent);
+        editor.putString(CURRENT_CITY, json);
+        editor.commit();
     }
 
     @Override
@@ -76,6 +82,15 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
     private Map<String, UserCity> getCities() {
         String json = mSharedPreferences.getString(USER_CITIES_JSON, null);
         return getFromJSON(json);
+    }
+
+    private UserCity getCurrent() {
+        String json = mSharedPreferences.getString(CURRENT_CITY, null);
+        if (json != null) {
+            return mGson.fromJson(json, UserCity.class);
+        } else {
+            return null;
+        }
     }
 
     private Map<String, UserCity> getFromJSON(String json) {

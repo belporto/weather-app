@@ -88,11 +88,14 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
 
     private DailyAdapter mAdapter;
 
-    Spinner mSpinner;
+    private Spinner mSpinner;
+
+    private boolean firstTime;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        firstTime = true;
         View view = configureView(inflater, container);
         setHasOptionsMenu(true);
 
@@ -184,11 +187,14 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     }
 
     @Override
-    public void showCityList(List<UserCity> userCityList) {
+    public void showCityList(List<UserCity> userCityList, UserCity current) {
         UserCityAdapter adapter = new UserCityAdapter(getActivity(), R.layout.spinner_item, userCityList);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         mSpinner.setAdapter(adapter);
+        if (current != null) {
+            mSpinner.setSelection(adapter.getPosition(current));
+        }
     }
 
     @Override
@@ -201,8 +207,11 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                UserCity city = (UserCity) parent.getSelectedItem();
-                mPresenter.onCitySelected(city);
+                if (!firstTime || mCurrent == null) {
+                    UserCity city = (UserCity) parent.getSelectedItem();
+                    mPresenter.onCitySelected(city);
+                }
+                firstTime = false;
             }
 
             @Override

@@ -70,4 +70,20 @@ public class UserCity implements Parcelable {
             return new UserCity[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserCity city = (UserCity) o;
+
+        return mId.equals(city.mId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return mId.hashCode();
+    }
 }
