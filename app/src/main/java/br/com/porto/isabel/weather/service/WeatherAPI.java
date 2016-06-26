@@ -23,13 +23,13 @@ public class WeatherAPI {
         mService = retrofit.create(WeatherService.class);
     }
 
-    public void getDaily(int cityId, Callback<Forecast> cb) {
-        Call<Forecast> call = mService.getDaily(BuildConfig.OPEN_WEATHER_MAP_API_KEY, cityId, NUM_OF_DAYS);
+    public void getDaily(double lat, double lon, Callback<Forecast> cb) {
+        Call<Forecast> call = mService.getDaily(BuildConfig.OPEN_WEATHER_MAP_API_KEY, lat, lon, NUM_OF_DAYS);
         call.enqueue(cb);
     }
 
-    public void getCurrent(int cityId, Callback<Current> cb) {
-        Call<Current> call = mService.getCurrent(BuildConfig.OPEN_WEATHER_MAP_API_KEY, cityId);
+    public void getCurrent(double lat, double lon, Callback<Current> cb) {
+        Call<Current> call = mService.getCurrent(BuildConfig.OPEN_WEATHER_MAP_API_KEY, lat, lon);
         call.enqueue(cb);
     }
 }

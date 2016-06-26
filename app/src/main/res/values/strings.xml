@@ -10,4 +10,7 @@
     <string name="city_manager_menu">My Cities</string>
     <string name="home_menu">Home</string>
     <string name="forecast_menu">Forecast</string>
+    <string name="alert_dialog_ok">ok</string>
+    <string name="alert_dialog_cancel">cancel</string>
+    <string name="dialog_title">Select your city</string>
 </resources>

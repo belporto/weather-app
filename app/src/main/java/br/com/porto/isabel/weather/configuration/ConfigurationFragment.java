@@ -1,24 +1,28 @@
 package br.com.porto.isabel.weather.configuration;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
+import br.com.porto.isabel.weather.bus.BusProvider;
+import br.com.porto.isabel.weather.configuration.places.PlacesDialogFragment;
+import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.view.UserCityListAdapter;
@@ -38,7 +42,8 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
 
     private ConfigurationContract.PresenterContract mPresenter;
 
-    private AppCompatDialog mDialog;
+    private PlacesDialogFragment mDialogFragment;
+
 
     @Nullable
     @Override
@@ -55,6 +60,8 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         mPresenter.init();
+
+        mDialogFragment = PlacesDialogFragment.newInstance();
 
         return view;
     }
@@ -99,12 +106,24 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
 
     @Override
     public void showCityDialog() {
+        mDialogFragment.show(getFragmentManager(), "dialog");
     }
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Subscribe
+    public void onCitySelected(UserCity userCity) {
+       mPresenter.onCityClicked(userCity);
     }
 }

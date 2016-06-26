@@ -31,6 +31,7 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public void requestDailyData() {
         UserCity currentCity = getCurrentCity();
+        mWeatherAPI.getDaily(currentCity.getLat(), currentCity.getLon(), new Callback<Forecast>() {
 
             @Override
             public void onResponse(Call<Forecast> call, Response<Forecast> response) {
@@ -52,6 +53,7 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public void requestCurrentData() {
         UserCity currentCity = getCurrentCity();
+        mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new Callback<Current>() {
             @Override
             public void onResponse(Call<Current> call, Response<Current> response) {
                 if (response.isSuccessful()) {

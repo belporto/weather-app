@@ -9,8 +9,8 @@ import retrofit2.http.Query;
 
 public interface WeatherService {
     @GET("weather?units=metric")
-    Call<Current> getCurrent(@Query("APPID") String key, @Query("id") int cityId);
+    Call<Current> getCurrent(@Query("APPID") String key, @Query("lat") double lat, @Query("lon") double lon);
 
     @GET("forecast/daily?units=metric")
-    Call<Forecast> getDaily(@Query("APPID") String key, @Query("id") int cityId, @Query("cnt") int numOfDays);
+    Call<Forecast> getDaily(@Query("APPID") String key,  @Query("lat") double lat, @Query("lon") double lon, @Query("cnt") int numOfDays);
 }
