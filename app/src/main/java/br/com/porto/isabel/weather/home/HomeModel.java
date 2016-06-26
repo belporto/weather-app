@@ -52,12 +52,13 @@ public class HomeModel implements HomeContract.ModelContract {
 
     @Override
     public void requestCurrentData() {
-        UserCity currentCity = getCurrentCity();
+        final UserCity currentCity = getCurrentCity();
         mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new Callback<Current>() {
             @Override
             public void onResponse(Call<Current> call, Response<Current> response) {
                 if (response.isSuccessful()) {
                     Current current = response.body();
+                    current.setCityName(currentCity.getName());
                     mPresenter.onRequestCurrentWithSuccess(current);
                 } else {
                     mPresenter.onRequestCurrentWithError();

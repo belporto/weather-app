@@ -32,6 +32,9 @@ public class Current implements Parcelable {
     @SerializedName("wind")
     private Wind mWind;
 
+    public void setCityName(String cityName) {
+        mCityName = cityName;
+    }
 
     public String getCityName() {
         return mCityName;
