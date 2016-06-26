@@ -7,4 +7,7 @@
     <string name="humidity_title">Humidity</string>
     <string name="pressure_title">Pressure</string>
     <string name="wind_title">Wind</string>
+    <string name="city_manager_menu">My Cities</string>
+    <string name="home_menu">Home</string>
+    <string name="forecast_menu">Forecast</string>
 </resources>
