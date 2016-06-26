@@ -19,11 +19,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
-import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
-import br.com.porto.isabel.weather.view.CityAdapter;
-import br.com.porto.isabel.weather.view.CityListAdapter;
+import br.com.porto.isabel.weather.view.UserCityListAdapter;
 import br.com.porto.isabel.weather.view.CityTouchCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +34,7 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
-    private CityListAdapter mAdapter;
+    private UserCityListAdapter mAdapter;
 
     private ConfigurationContract.PresenterContract mPresenter;
 
@@ -51,7 +49,6 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
 
         ConfigurationModel model = new ConfigurationModel(userCityRepository);
         mPresenter = new ConfigurationPresenter(this, model);
-        model.setPresenter(mPresenter);
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new CityTouchCallback(mAdapter, mPresenter, getActivity(), getResources(), 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -66,7 +63,7 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
         final View view = inflater.inflate(R.layout.configuration_fragment, container, false);
         ButterKnife.bind(this, view);
 
-        mAdapter = new CityListAdapter();
+        mAdapter = new UserCityListAdapter();
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -85,36 +82,29 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     }
 
     @Override
-    public void showCityDialog(List<City> allCities) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
-        builder.setTitle("TESTE");
-        final CityAdapter adapter = new CityAdapter(getActivity(), R.layout.dialog_item, allCities);
-        builder.setSingleChoiceItems(adapter, -1, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                City city = adapter.getItem(which);
-                mPresenter.onCityClicked(city);
-            }
-        });
-
-        mDialog = builder.create();
-
-        mDialog.show();
-    }
-
-    @Override
-    public void showUserCity(List<City> userCityList) {
+    public void showUserCity(List<UserCity> userCityList) {
         mAdapter.setCityList(userCityList);
     }
 
     @Override
-    public void onCityDeleted(City city) {
+    public void onCityDeleted(UserCity city) {
         mAdapter.removeCity(city);
     }
 
     @Override
-    public void onCityAdded(City city) {
+    public void onCityAdded(UserCity city) {
         mAdapter.addCity(city);
-        mDialog.dismiss();
+    }
+
+
+    @Override
+    public void showCityDialog() {
+    }
+
+
+    @Override
+    }
+
+    @Override
     }
 }

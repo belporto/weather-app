@@ -3,17 +3,17 @@ package br.com.porto.isabel.weather.repository;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.City;
+import br.com.porto.isabel.weather.model.user.UserCity;
 
 public interface UserCityRepository {
 
-    void addCity(City city);
+    void addCity(UserCity city);
 
-    void removeCity(Integer id);
+    void removeCity(String id);
 
-    City getCurrentCity();
+    UserCity getCurrentCity();
 
-    void selectCity(Integer id);
+    void selectCity(String id);
 
-    List<City> getAll();
+    List<UserCity> getAll();
 }

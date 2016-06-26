@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import retrofit2.Call;
@@ -29,8 +30,7 @@ public class HomeModel implements HomeContract.ModelContract {
 
     @Override
     public void requestDailyData() {
-        City currentCity = getCurrentCity();
-        mWeatherAPI.getDaily(currentCity.getId(), new Callback<Forecast>() {
+        UserCity currentCity = getCurrentCity();
 
             @Override
             public void onResponse(Call<Forecast> call, Response<Forecast> response) {
@@ -51,8 +51,7 @@ public class HomeModel implements HomeContract.ModelContract {
 
     @Override
     public void requestCurrentData() {
-        City currentCity = getCurrentCity();
-        mWeatherAPI.getCurrent(currentCity.getId(), new Callback<Current>() {
+        UserCity currentCity = getCurrentCity();
             @Override
             public void onResponse(Call<Current> call, Response<Current> response) {
                 if (response.isSuccessful()) {
@@ -71,17 +70,17 @@ public class HomeModel implements HomeContract.ModelContract {
     }
 
     @Override
-    public List<City> getUserCityList() {
+    public List<UserCity> getUserCityList() {
         return mUserCityRepository.getAll();
     }
 
     @Override
-    public void selectCity(City city) {
+    public void selectCity(UserCity city) {
         mUserCityRepository.selectCity(city.getId());
     }
 
 
-    private City getCurrentCity() {
+    private UserCity getCurrentCity() {
         return mUserCityRepository.getCurrentCity();
     }
 }

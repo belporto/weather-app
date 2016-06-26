@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.porto.isabel.weather.model.City;
+import br.com.porto.isabel.weather.model.user.UserCity;
 
 public class MemoryUserCityRepository implements UserCityRepository {
 
-    private Map<Integer, City> mCities;
-    private City mCurrent;
+    private Map<String, UserCity> mCities;
+    private UserCity mCurrent;
 
     public static MemoryUserCityRepository instance;
 
@@ -24,43 +24,33 @@ public class MemoryUserCityRepository implements UserCityRepository {
 
     private MemoryUserCityRepository() {
         mCities = new HashMap<>();
-        City city = new City();
-        city.setId(2964574);
-        city.setName("Dublin");
-        city.setCountry("IR");
 
-        City city2 = new City();
-        city2.setId(5128638);
-        city2.setName("New York");
-        city2.setCountry("US");
-
-        mCurrent = city;
-        mCities.put(city.getId(), city);
-        mCities.put(city2.getId(), city2);
-    }
-
-    @Override
-    public void addCity(City city) {
+        UserCity city = new UserCity("Dublin", 53.3498053, -6.2603097, "ChIJL6wn6oAOZ0gRoHExl6nHAAo");
         mCities.put(city.getId(), city);
     }
 
     @Override
-    public void removeCity(Integer id) {
+    public void addCity(UserCity city) {
+        mCities.put(city.getId(), city);
+    }
+
+    @Override
+    public void removeCity(String id) {
         mCities.remove(id);
     }
 
     @Override
-    public City getCurrentCity() {
+    public UserCity getCurrentCity() {
         return mCurrent;
     }
 
     @Override
-    public void selectCity(Integer id) {
+    public void selectCity(String id) {
         mCurrent = mCities.get(id);
     }
 
     @Override
-    public List<City> getAll() {
+    public List<UserCity> getAll() {
         return new ArrayList(mCities.values());
     }
 }

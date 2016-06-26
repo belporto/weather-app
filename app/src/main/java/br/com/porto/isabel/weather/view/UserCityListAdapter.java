@@ -11,24 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
-import br.com.porto.isabel.weather.model.City;
+import br.com.porto.isabel.weather.model.user.UserCity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHolder> {
+public class UserCityListAdapter extends RecyclerView.Adapter<UserCityListAdapter.ViewHolder> {
 
-    private List<City> mCityList;
+    private List<UserCity> mCityList;
 
-    public City getItem(int position) {
+    public UserCity getItem(int position) {
         return mCityList.get(position);
     }
 
-    public void removeCity(City city) {
+    public void removeCity(UserCity city) {
         mCityList.remove(city);
         notifyDataSetChanged();
     }
 
-    public void addCity(City city) {
+    public void addCity(UserCity city) {
         if (!mCityList.contains(city)) {
             mCityList.add(city);
             notifyDataSetChanged();
@@ -46,17 +46,17 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
         }
     }
 
-    public CityListAdapter() {
+    public UserCityListAdapter() {
         mCityList = new ArrayList<>();
     }
 
-    public void setCityList(List<City> cityList) {
+    public void setCityList(List<UserCity> cityList) {
         mCityList = cityList;
         notifyDataSetChanged();
     }
 
     @Override
-    public CityListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UserCityListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_component, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -64,7 +64,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        City city = mCityList.get(position);
+        UserCity city = mCityList.get(position);
         holder.cityName.setText(city.toString());
     }
 

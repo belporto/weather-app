@@ -1,9 +1,9 @@
 package br.com.porto.isabel.weather.view;
 
-import br.com.porto.isabel.weather.model.City;
+import br.com.porto.isabel.weather.model.user.UserCity;
 
 
 public interface CityTouchCallbackContract {
 
-    void onSwipe(City city);
+    void onSwipe(UserCity city);
 }

@@ -4,6 +4,7 @@ package br.com.porto.isabel.weather.home;
 import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.user.UserCity;
 
 public class HomePresenter implements HomeContract.PresenterContract {
 
@@ -34,7 +35,7 @@ public class HomePresenter implements HomeContract.PresenterContract {
     }
 
     @Override
-    public void onCitySelected(City city) {
+    public void onCitySelected(UserCity city) {
         mView.showProgress();
         mModel.selectCity(city);
         mModel.requestCurrentData();

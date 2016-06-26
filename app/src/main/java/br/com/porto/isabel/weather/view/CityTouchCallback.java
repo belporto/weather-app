@@ -14,17 +14,18 @@ import android.view.View;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.model.City;
+import br.com.porto.isabel.weather.model.user.UserCity;
 
 
 public class CityTouchCallback extends ItemTouchHelper.SimpleCallback {
 
-    private CityListAdapter mAdapter;
+    private UserCityListAdapter mAdapter;
     private CityTouchCallbackContract mContract;
     private int mColor;
     private Bitmap mIcon;
     private float margin;
 
-    public CityTouchCallback(CityListAdapter adapter, CityTouchCallbackContract contract, Context context, Resources mResources, int dragDirs, int swipeDirs) {
+    public CityTouchCallback(UserCityListAdapter adapter, CityTouchCallbackContract contract, Context context, Resources mResources, int dragDirs, int swipeDirs) {
         super(dragDirs, swipeDirs);
         mAdapter = adapter;
         mContract = contract;
@@ -41,7 +42,7 @@ public class CityTouchCallback extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
         int position = viewHolder.getAdapterPosition();
-        City city = mAdapter.getItem(position);
+        UserCity city = mAdapter.getItem(position);
         mContract.onSwipe(city);
     }
 

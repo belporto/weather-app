@@ -3,7 +3,7 @@ package br.com.porto.isabel.weather.configuration;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.City;
+import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.view.CityTouchCallbackContract;
 
 public interface ConfigurationContract {
@@ -14,31 +14,28 @@ public interface ConfigurationContract {
 
         void onAddCityClicked();
 
-        void onCityClicked(City city);
+        void onCityClicked(UserCity city);
+
     }
 
     interface ViewContract {
 
-        void showCityDialog(List<City> allCities);
+        void showCityDialog();
 
-        void showUserCity(List<City> userCityList);
+        void showUserCity(List<UserCity> userCityList);
 
-        void onCityDeleted(City city);
+        void onCityDeleted(UserCity city);
 
-        void onCityAdded(City city);
+        void onCityAdded(UserCity city);
     }
 
     interface ModelContract {
 
-        void setPresenter(PresenterContract presenter);
+        List<UserCity> getUserCityList();
 
-        List<City> getUserCityList();
+        void deleteCity(UserCity city);
 
-        void deleteCity(City city);
-
-        List<City> getAllCities();
-
-        void addCity(City city);
+        void addCity(UserCity city);
 
     }
 

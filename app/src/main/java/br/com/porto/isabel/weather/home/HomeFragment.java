@@ -24,16 +24,16 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
-import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
-import br.com.porto.isabel.weather.view.CityAdapter;
 import br.com.porto.isabel.weather.view.DailyAdapter;
 import br.com.porto.isabel.weather.view.DetailCustomView;
 import br.com.porto.isabel.weather.view.IconUtil;
+import br.com.porto.isabel.weather.view.UserCityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -182,8 +182,8 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     }
 
     @Override
-    public void showCityList(List<City> userCityList) {
-        CityAdapter adapter = new CityAdapter(getActivity(), R.layout.spinner_item, userCityList);
+    public void showCityList(List<UserCity> userCityList) {
+        UserCityAdapter adapter = new UserCityAdapter(getActivity(), R.layout.spinner_item, userCityList);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
         mSpinner.setAdapter(adapter);
@@ -199,7 +199,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                City city = (City) parent.getSelectedItem();
+                UserCity city = (UserCity) parent.getSelectedItem();
                 mPresenter.onCitySelected(city);
             }
 

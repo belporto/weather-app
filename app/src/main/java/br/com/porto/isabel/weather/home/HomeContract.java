@@ -3,9 +3,9 @@ package br.com.porto.isabel.weather.home;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.user.UserCity;
 
 public interface HomeContract {
 
@@ -21,7 +21,7 @@ public interface HomeContract {
 
         void onRefresh();
 
-        void onCitySelected(City city);
+        void onCitySelected(UserCity city);
 
         void onCreateOptionsMenu();
     }
@@ -38,7 +38,7 @@ public interface HomeContract {
 
         void hideSwipe();
 
-        void showCityList(List<City> userCityList);
+        void showCityList(List<UserCity> userCityList);
     }
 
     interface ModelContract {
@@ -49,9 +49,9 @@ public interface HomeContract {
 
         void requestCurrentData();
 
-        List<City> getUserCityList();
+        List<UserCity> getUserCityList();
 
-        void selectCity(City city);
+        void selectCity(UserCity city);
 
     }
 

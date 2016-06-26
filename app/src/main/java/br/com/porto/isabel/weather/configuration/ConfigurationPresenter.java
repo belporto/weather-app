@@ -1,7 +1,7 @@
 package br.com.porto.isabel.weather.configuration;
 
 
-import br.com.porto.isabel.weather.model.City;
+import br.com.porto.isabel.weather.model.user.UserCity;
 
 public class ConfigurationPresenter implements ConfigurationContract.PresenterContract {
 
@@ -20,17 +20,18 @@ public class ConfigurationPresenter implements ConfigurationContract.PresenterCo
 
     @Override
     public void onAddCityClicked() {
-        mView.showCityDialog(mModel.getAllCities());
+        mView.showCityDialog();
     }
 
     @Override
-    public void onCityClicked(City city) {
+    public void onCityClicked(UserCity city) {
         mModel.addCity(city);
         mView.onCityAdded(city);
     }
 
+
     @Override
-    public void onSwipe(City city) {
+    public void onSwipe(UserCity city) {
         mModel.deleteCity(city);
         mView.onCityDeleted(city);
     }
