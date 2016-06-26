@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     }
 
     private View configureView(LayoutInflater inflater, @Nullable ViewGroup container) {
-        View view = inflater.inflate(R.layout.configuration_fragment, container, false);
+        final View view = inflater.inflate(R.layout.configuration_fragment, container, false);
         ButterKnife.bind(this, view);
 
         mAdapter = new CityListAdapter();
@@ -54,11 +55,35 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                int position = viewHolder.getAdapterPosition();
+                City city = mAdapter.getItem(position);
+                mPresenter.onSwipe(city);
+                //Remove swiped item from list and notify the RecyclerView
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
         return view;
     }
 
     @Override
     public void showUserCity(List<City> userCityList) {
         mAdapter.setCityList(userCityList);
+    }
+
+    @Override
+    public void onCityDeleted(City city) {
+        mAdapter.removeCity(city);
     }
 }

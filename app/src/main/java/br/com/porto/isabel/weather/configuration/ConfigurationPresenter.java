@@ -1,6 +1,8 @@
 package br.com.porto.isabel.weather.configuration;
 
 
+import br.com.porto.isabel.weather.model.City;
+
 public class ConfigurationPresenter implements ConfigurationContract.PresenterContract {
 
     private ConfigurationContract.ViewContract mView;
@@ -14,5 +16,11 @@ public class ConfigurationPresenter implements ConfigurationContract.PresenterCo
     @Override
     public void init() {
         mView.showUserCity(mModel.getUserCityList());
+    }
+
+    @Override
+    public void onSwipe(City city) {
+        mModel.deleteCity(city);
+        mView.onCityDeleted(city);
     }
 }

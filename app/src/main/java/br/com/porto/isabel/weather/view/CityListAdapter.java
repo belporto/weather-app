@@ -19,6 +19,15 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
 
     private List<City> mCityList;
 
+    public City getItem(int position) {
+        return mCityList.get(position);
+    }
+
+    public void removeCity(City city) {
+        mCityList.remove(city);
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.city_name)

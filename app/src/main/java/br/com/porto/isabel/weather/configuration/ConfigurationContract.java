@@ -10,11 +10,15 @@ public interface ConfigurationContract {
     interface PresenterContract {
 
         void init();
+
+        void onSwipe(City city);
     }
 
     interface ViewContract {
 
         void showUserCity(List<City> userCityList);
+
+        void onCityDeleted(City city);
     }
 
     interface ModelContract {
@@ -23,6 +27,9 @@ public interface ConfigurationContract {
         void setPresenter(PresenterContract presenter);
 
         List<City> getUserCityList();
+
+        void deleteCity(City city);
+
     }
 
 }
