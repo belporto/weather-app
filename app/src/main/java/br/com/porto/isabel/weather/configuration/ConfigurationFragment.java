@@ -1,10 +1,14 @@
 package br.com.porto.isabel.weather.configuration;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -18,6 +22,7 @@ import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
+import br.com.porto.isabel.weather.view.CityAdapter;
 import br.com.porto.isabel.weather.view.CityListAdapter;
 import br.com.porto.isabel.weather.view.CityTouchCallback;
 import butterknife.BindView;
@@ -28,9 +33,14 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     @BindView(R.id.configuration_city_list)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
+
     private CityListAdapter mAdapter;
 
     private ConfigurationContract.PresenterContract mPresenter;
+
+    private AppCompatDialog mDialog;
 
     @Nullable
     @Override
@@ -65,8 +75,31 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
         ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         supportActionBar.setTitle(R.string.city_manager_menu);
 
-
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.onAddCityClicked();
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void showCityDialog(List<City> allCities) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+        builder.setTitle("TESTE");
+        final CityAdapter adapter = new CityAdapter(getActivity(), R.layout.dialog_item, allCities);
+        builder.setSingleChoiceItems(adapter, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                City city = adapter.getItem(which);
+                mPresenter.onCityClicked(city);
+            }
+        });
+
+        mDialog = builder.create();
+
+        mDialog.show();
     }
 
     @Override
@@ -77,5 +110,11 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     @Override
     public void onCityDeleted(City city) {
         mAdapter.removeCity(city);
+    }
+
+    @Override
+    public void onCityAdded(City city) {
+        mAdapter.addCity(city);
+        mDialog.dismiss();
     }
 }

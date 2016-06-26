@@ -24,4 +24,14 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="MyTitleTextStyle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowTitleStyle">@style/MyTitleTextStyle</item>
+    </style>
+
 </resources>

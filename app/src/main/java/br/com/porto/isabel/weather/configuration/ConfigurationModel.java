@@ -28,4 +28,16 @@ public class ConfigurationModel implements ConfigurationContract.ModelContract {
     public void deleteCity(City city) {
         mUserCityRepository.removeCity(city.getId());
     }
+
+    @Override
+    public List<City> getAllCities() {
+
+        //TODO: change
+        return mUserCityRepository.getAll();
+    }
+
+    @Override
+    public void addCity(City city) {
+        mUserCityRepository.addCity(city);
+    }
 }

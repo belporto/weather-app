@@ -19,6 +19,17 @@ public class ConfigurationPresenter implements ConfigurationContract.PresenterCo
     }
 
     @Override
+    public void onAddCityClicked() {
+        mView.showCityDialog(mModel.getAllCities());
+    }
+
+    @Override
+    public void onCityClicked(City city) {
+        mModel.addCity(city);
+        mView.onCityAdded(city);
+    }
+
+    @Override
     public void onSwipe(City city) {
         mModel.deleteCity(city);
         mView.onCityDeleted(city);

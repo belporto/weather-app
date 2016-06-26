@@ -28,6 +28,13 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    public void addCity(City city) {
+        if (!mCityList.contains(city)) {
+            mCityList.add(city);
+            notifyDataSetChanged();
+        }
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.city_name)
