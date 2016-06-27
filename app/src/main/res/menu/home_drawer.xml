@@ -10,10 +10,6 @@
             android:id="@+id/nav_cities"
             android:icon="@drawable/search"
             android:title="@string/city_manager_menu" />
-        <item
-            android:id="@+id/nav_forecast"
-            android:icon="@drawable/calendar"
-            android:title="@string/forecast_menu" />
     </group>
 
 
