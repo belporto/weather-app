@@ -14,4 +14,7 @@
     <string name="alert_dialog_cancel">cancel</string>
     <string name="dialog_title">Find your city</string>
     <string name="city_hint">City name</string>
+    <string name="error_title">Sorry!</string>
+    <string name="error">Something went wrong!</string>
+    <string name="try_again">try again</string>
 </resources>

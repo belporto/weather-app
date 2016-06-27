@@ -39,6 +39,8 @@ public interface HomeContract {
         void hideSwipe();
 
         void showCityList(List<UserCity> userCityList, UserCity current);
+
+        void showError();
     }
 
     interface ModelContract {

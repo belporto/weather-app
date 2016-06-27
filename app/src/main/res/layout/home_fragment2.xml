@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/home_swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/default_margin"
+                android:layout_marginTop="60dp">
+
+                <TextView
+                    android:id="@+id/home_city_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="34sp"
+                    tools:text="Rio de Janeiro" />
+
+                <TextView
+                    android:id="@+id/home_weather_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    tools:text="Clear" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/home_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:textSize="67sp"
+                        tools:text="20°" />
+
+                    <ImageView
+                        android:id="@+id/home_weather_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:src="@drawable/ic_01d" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_details_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/default_margin"
+                android:layout_marginTop="60dp">
+
+                <br.com.porto.isabel.weather.view.DetailCustomView
+                    android:id="@+id/home_humidity_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    custom:detailIcon="@drawable/ic_water"
+                    custom:detailTitle="@string/humidity_title" />
+
+                <br.com.porto.isabel.weather.view.DetailCustomView
+                    android:id="@+id/home_pressure_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    custom:detailIcon="@drawable/ic_pressure"
+                    custom:detailTitle="@string/pressure_title" />
+
+                <br.com.porto.isabel.weather.view.DetailCustomView
+                    android:id="@+id/home_wind_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    custom:detailIcon="@drawable/ic_weather_windy"
+                    custom:detailTitle="@string/wind_title" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/default_margin"
+                android:layout_marginTop="60dp">
+
+                <br.com.porto.isabel.weather.view.DetailCustomView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    custom:detailIcon="@drawable/ic_water"
+                    custom:detailTitle="@string/humidity_title" />
+
+                <br.com.porto.isabel.weather.view.DetailCustomView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    custom:detailIcon="@drawable/ic_pressure"
+                    custom:detailTitle="@string/pressure_title" />
+
+                <br.com.porto.isabel.weather.view.DetailCustomView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    custom:detailIcon="@drawable/ic_weather_windy"
+                    custom:detailTitle="@string/wind_title" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>
+

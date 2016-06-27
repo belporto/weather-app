@@ -24,7 +24,7 @@ public class HomePresenter implements HomeContract.PresenterContract {
 
     @Override
     public void onRequestCurrentWithError() {
-        //TODO:
+        mView.showError();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class HomePresenter implements HomeContract.PresenterContract {
 
     @Override
     public void onRequestDailyWithError() {
-        //TODO:
+        mView.showError();
     }
 
 

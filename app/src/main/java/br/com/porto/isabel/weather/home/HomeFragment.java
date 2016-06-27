@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
+import br.com.porto.isabel.weather.error.ErrorFragment;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
@@ -195,6 +196,15 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         if (current != null) {
             mSpinner.setSelection(adapter.getPosition(current));
         }
+    }
+
+    @Override
+    public void showError() {
+       getFragmentManager().
+                beginTransaction().
+                replace(R.id.container, new ErrorFragment()).
+                addToBackStack(null).
+                commit();
     }
 
     @Override
