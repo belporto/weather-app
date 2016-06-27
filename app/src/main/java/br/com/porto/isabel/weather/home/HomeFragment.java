@@ -1,5 +1,6 @@
 package br.com.porto.isabel.weather.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,9 +26,11 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
+import br.com.porto.isabel.weather.daily.DailyActivity;
 import br.com.porto.isabel.weather.error.ErrorFragment;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
 import br.com.porto.isabel.weather.model.Current;
+import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
@@ -97,14 +100,14 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         firstTime = true;
-        View view = configureView(inflater, container);
-        setHasOptionsMenu(true);
 
         UserCityRepository userCityRepository = new SharedPreferencesUserCityRepository(getActivity(), new Gson());
-
         HomeModel model = new HomeModel(new WeatherAPI(), userCityRepository);
         mPresenter = new HomePresenter(this, model);
         model.setPresenter(mPresenter);
+
+        View view = configureView(inflater, container);
+        setHasOptionsMenu(true);
 
         Current current = null;
         Forecast forecast = null;
@@ -125,7 +128,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
         mIconUtil = new IconUtil(this.getResources(), getActivity().getPackageName());
-        mAdapter = new DailyAdapter(new DateFormatter(), mIconUtil);
+        mAdapter = new DailyAdapter(new DateFormatter(), mIconUtil, mPresenter);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -200,11 +203,19 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
 
     @Override
     public void showError() {
-       getFragmentManager().
+        getFragmentManager().
                 beginTransaction().
                 replace(R.id.container, new ErrorFragment()).
                 addToBackStack(null).
                 commit();
+    }
+
+    @Override
+    public void showDailyInformation(Daily daily, UserCity userCity) {
+        Intent intent = new Intent(getActivity(), DailyActivity.class);
+        intent.putExtra(DailyActivity.DAILY_EXTRA, daily);
+        intent.putExtra(DailyActivity.USER_CITY, userCity);
+        startActivity(intent);
     }
 
     @Override

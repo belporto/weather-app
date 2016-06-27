@@ -2,6 +2,7 @@ package br.com.porto.isabel.weather.home;
 
 
 import br.com.porto.isabel.weather.model.Current;
+import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
 
@@ -43,6 +44,11 @@ public class HomePresenter implements HomeContract.PresenterContract {
     @Override
     public void onCreateOptionsMenu() {
         mView.showCityList(mModel.getUserCityList(), mModel.getCurrentCity());
+    }
+
+    @Override
+    public void onDailySelected(Daily daily) {
+        mView.showDailyInformation(daily, mModel.getCurrentCity());
     }
 
     @Override
