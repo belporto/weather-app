@@ -12,6 +12,8 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
+import br.com.porto.isabel.weather.home.HomeContract;
+import br.com.porto.isabel.weather.home.HomePresenter;
 import br.com.porto.isabel.weather.model.Daily;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,11 +21,12 @@ import butterknife.ButterKnife;
 
 public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> {
 
+    private final HomeContract.PresenterContract mPresenter;
     private DateFormatter mDateFormatter;
     private IconUtil mIconUtil;
-    private List<Daily> mDaily;
+    protected List<Daily> mDaily;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.daily_week_day)
         public TextView weekDayTextView;
@@ -40,16 +43,28 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         @BindView(R.id.daily_humidity)
         public TextView humidityTextView;
 
+        @BindView(R.id.daily_content)
+        public View content;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            content.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            Daily daily = mDaily.get(getAdapterPosition());
+            mPresenter.onDailySelected(daily);
         }
     }
 
-    public DailyAdapter(DateFormatter dateFormatter, IconUtil iconUtil) {
+    public DailyAdapter(DateFormatter dateFormatter, IconUtil iconUtil, HomeContract.PresenterContract presenter) {
         mDateFormatter = dateFormatter;
         mDaily = new ArrayList<>();
         mIconUtil = iconUtil;
+        mPresenter = presenter;
     }
 
     public void setDailyList(List<Daily> daily) {
@@ -73,6 +88,8 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         holder.weekDayTextView.setText(mDateFormatter.format(daily.getDate(), "EEE"));
         holder.weatherImageView.setImageResource(mIconUtil.getWeatherImageResource(daily.getWeatherCode()));
     }
+
+
 
 
     @Override

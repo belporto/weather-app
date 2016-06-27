@@ -21,4 +21,12 @@ public class IconUtil {
         @DrawableRes int drawableResourceId = mResources.getIdentifier(drawableName, "drawable", mPackageName);
         return drawableResourceId;
     }
+
+    public
+    @DrawableRes
+    int getWeatherImageLargeResource(String code) {
+        String drawableName = "ic_" + code + "_large";
+        @DrawableRes int drawableResourceId = mResources.getIdentifier(drawableName, "drawable", mPackageName);
+        return drawableResourceId;
+    }
 }

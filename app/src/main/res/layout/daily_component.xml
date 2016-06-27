@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/default_margin"
     android:gravity="center"
+    android:id="@+id/daily_content"
     android:orientation="vertical">
 
     <TextView
