@@ -15,7 +15,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="<GOOGLE API KEY>" />
 
-        <activity android:name=".forecast.ForecastActivity" />
+        <activity
+            android:name=".daily.DailyActivity"
+            android:parentActivityName=".DrawerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DrawerActivity" />
+        </activity>
         <activity android:name=".DrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
