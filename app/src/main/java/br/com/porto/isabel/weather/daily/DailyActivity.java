@@ -5,12 +5,15 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import br.com.porto.isabel.weather.R;
+import br.com.porto.isabel.weather.formatter.DateFormatter;
 import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.view.DetailCustomView;
 import br.com.porto.isabel.weather.view.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +28,25 @@ public class DailyActivity extends AppCompatActivity implements DailyContract.Vi
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
     private IconUtil mIconUtil;
+
+    @BindView(R.id.daily_humidity_view)
+    DetailCustomView humidityView;
+
+    @BindView(R.id.daily_wind_view)
+    DetailCustomView windView;
+
+    @BindView(R.id.daily_pressure_view)
+    DetailCustomView pressureView;
+
+    @BindView(R.id.daily_temperature)
+    DetailCustomView temperatureView;
+
+    @BindView(R.id.daily_description)
+    TextView descriptionView;
+
+    @BindView(R.id.daily_week_day)
+    TextView weekDayView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,5 +79,14 @@ public class DailyActivity extends AppCompatActivity implements DailyContract.Vi
     public void showDailyData(Daily daily) {
         final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
         Glide.with(this).load(mIconUtil.getWeatherImageLargeResource(daily.getWeatherCode())).centerCrop().into(imageView);
+        DateFormatter dateFormatter = new DateFormatter();
+
+        weekDayView.setText(dateFormatter.format(daily.getDate(), "EEEE"));
+        descriptionView.setText(daily.getWeatherDescription());
+        temperatureView.setValue(daily.getMaxTemperature().intValue() + "° / " + daily.getMinTemperature().intValue() + "°");
+        humidityView.setValue(daily.getHumidity().intValue() + " %");
+        windView.setValue(daily.getWindSpeed().intValue() + " km/h   " + daily.getWindDegree().intValue() + " ° ");
+        pressureView.setValue(daily.getPressure().intValue() + " hPa");
+
     }
 }

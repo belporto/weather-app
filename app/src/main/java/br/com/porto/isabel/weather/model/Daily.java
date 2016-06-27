@@ -96,4 +96,20 @@ public class Daily implements Parcelable {
             return new Daily[size];
         }
     };
+
+    public Double getWindSpeed() {
+        return mWindSpeed * 3.6;
+    }
+
+    public Double getWindDegree() {
+        return mWindDirection;
+    }
+
+    public Double getPressure() {
+        return mPressure;
+    }
+
+    public String getWeatherDescription() {
+        return mWeatherList.get(0).getDescription();
+    }
 }

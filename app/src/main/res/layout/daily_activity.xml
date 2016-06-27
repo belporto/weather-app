@@ -1,7 +1,6 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -43,12 +42,59 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <FrameLayout
-            android:id="@+id/container"
+        <LinearLayout
+            android:id="@+id/home_details_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".MainActivity"
-            android:layout_below="@+id/toolbar" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/default_margin">
+
+            <TextView
+                android:id="@+id/daily_week_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/daily_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:textSize="16sp" />
+
+            <br.com.porto.isabel.weather.view.DetailCustomView
+                android:id="@+id/daily_temperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                custom:detailIcon="@drawable/ic_celsius"
+                custom:detailTitle="@string/temperature_title" />
+
+            <br.com.porto.isabel.weather.view.DetailCustomView
+                android:id="@+id/daily_humidity_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                custom:detailIcon="@drawable/ic_water"
+                custom:detailTitle="@string/humidity_title" />
+
+            <br.com.porto.isabel.weather.view.DetailCustomView
+                android:id="@+id/daily_pressure_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                custom:detailIcon="@drawable/ic_pressure"
+                custom:detailTitle="@string/pressure_title" />
+
+            <br.com.porto.isabel.weather.view.DetailCustomView
+                android:id="@+id/daily_wind_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                custom:detailIcon="@drawable/ic_weather_windy"
+                custom:detailTitle="@string/wind_title" />
+        </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
