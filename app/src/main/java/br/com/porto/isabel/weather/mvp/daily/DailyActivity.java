@@ -47,6 +47,9 @@ public class DailyActivity extends AppCompatActivity implements DailyContract.Vi
     @BindView(R.id.daily_week_day)
     TextView weekDayView;
 
+    @BindView(R.id.backdrop)
+    ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +80,6 @@ public class DailyActivity extends AppCompatActivity implements DailyContract.Vi
 
     @Override
     public void showDailyData(Daily daily) {
-        final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
         Glide.with(this).load(mIconUtil.getWeatherImageLargeResource(daily.getWeatherCode())).centerCrop().into(imageView);
         DateFormatter dateFormatter = new DateFormatter();
 
