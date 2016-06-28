@@ -4,7 +4,7 @@ package br.com.porto.isabel.weather.configuration;
 import java.util.List;
 
 import br.com.porto.isabel.weather.model.user.UserCity;
-import br.com.porto.isabel.weather.view.CityTouchCallbackContract;
+import br.com.porto.isabel.weather.view.touch.CityTouchCallbackContract;
 
 public interface ConfigurationContract {
 

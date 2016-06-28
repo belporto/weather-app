@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.view;
+package br.com.porto.isabel.weather.view.util;
 
 
 import android.content.res.Resources;

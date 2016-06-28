@@ -26,8 +26,8 @@ import br.com.porto.isabel.weather.configuration.places.PlacesDialogFragment;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
-import br.com.porto.isabel.weather.view.CityTouchCallback;
-import br.com.porto.isabel.weather.view.UserCityListAdapter;
+import br.com.porto.isabel.weather.view.touch.CityTouchCallback;
+import br.com.porto.isabel.weather.view.adapter.usercity.UserCityListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

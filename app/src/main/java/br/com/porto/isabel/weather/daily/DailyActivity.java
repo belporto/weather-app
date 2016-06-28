@@ -13,8 +13,8 @@ import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
 import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.user.UserCity;
-import br.com.porto.isabel.weather.view.DetailCustomView;
-import br.com.porto.isabel.weather.view.IconUtil;
+import br.com.porto.isabel.weather.view.customview.DetailCustomView;
+import br.com.porto.isabel.weather.view.util.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

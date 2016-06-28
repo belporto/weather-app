@@ -115,14 +115,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <br.com.porto.isabel.weather.view.DetailCustomView
+                        <br.com.porto.isabel.weather.view.customview.DetailCustomView
                             android:id="@+id/home_humidity_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             custom:detailIcon="@drawable/ic_water"
                             custom:detailTitle="@string/humidity_title" />
 
-                        <br.com.porto.isabel.weather.view.DetailCustomView
+                        <br.com.porto.isabel.weather.view.customview.DetailCustomView
                             android:id="@+id/home_pressure_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                             custom:detailIcon="@drawable/ic_pressure"
                             custom:detailTitle="@string/pressure_title" />
 
-                        <br.com.porto.isabel.weather.view.DetailCustomView
+                        <br.com.porto.isabel.weather.view.customview.DetailCustomView
                             android:id="@+id/home_wind_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

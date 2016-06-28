@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.view;
+package br.com.porto.isabel.weather.view.touch;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -13,8 +13,8 @@ import android.util.TypedValue;
 import android.view.View;
 
 import br.com.porto.isabel.weather.R;
-import br.com.porto.isabel.weather.model.City;
 import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.view.adapter.usercity.UserCityListAdapter;
 
 
 public class CityTouchCallback extends ItemTouchHelper.SimpleCallback {

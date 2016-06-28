@@ -1,5 +1,5 @@
 
-package br.com.porto.isabel.weather.view;
+package br.com.porto.isabel.weather.view.adapter.usercity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

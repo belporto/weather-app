@@ -63,7 +63,7 @@
                 android:layout_marginTop="@dimen/default_margin"
                 android:textSize="16sp" />
 
-            <br.com.porto.isabel.weather.view.DetailCustomView
+            <br.com.porto.isabel.weather.view.customview.DetailCustomView
                 android:id="@+id/daily_temperature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                 custom:detailIcon="@drawable/ic_celsius"
                 custom:detailTitle="@string/temperature_title" />
 
-            <br.com.porto.isabel.weather.view.DetailCustomView
+            <br.com.porto.isabel.weather.view.customview.DetailCustomView
                 android:id="@+id/daily_humidity_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 custom:detailIcon="@drawable/ic_water"
                 custom:detailTitle="@string/humidity_title" />
 
-            <br.com.porto.isabel.weather.view.DetailCustomView
+            <br.com.porto.isabel.weather.view.customview.DetailCustomView
                 android:id="@+id/daily_pressure_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                 custom:detailIcon="@drawable/ic_pressure"
                 custom:detailTitle="@string/pressure_title" />
 
-            <br.com.porto.isabel.weather.view.DetailCustomView
+            <br.com.porto.isabel.weather.view.customview.DetailCustomView
                 android:id="@+id/daily_wind_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

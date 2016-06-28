@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.view;
+package br.com.porto.isabel.weather.view.adapter.usercity;
 
 
 import android.content.Context;
