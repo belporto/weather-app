@@ -44,4 +44,10 @@ public class ConfigurationPresenter implements ConfigurationContract.PresenterCo
     public void onSwipe(UserCity city) {
         mModel.deleteCity(city);
     }
+
+    @Override
+    public void onCitySelected(UserCity userCity) {
+        mModel.selectCity(userCity);
+        mView.showCityInformation(userCity);
+    }
 }

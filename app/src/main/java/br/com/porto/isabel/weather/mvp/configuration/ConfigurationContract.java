@@ -4,11 +4,12 @@ package br.com.porto.isabel.weather.mvp.configuration;
 import java.util.List;
 
 import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.view.adapter.usercity.UserCityListCallback;
 import br.com.porto.isabel.weather.view.touch.CityTouchCallbackContract;
 
 public interface ConfigurationContract {
 
-    interface PresenterContract extends CityTouchCallbackContract {
+    interface PresenterContract extends CityTouchCallbackContract, UserCityListCallback {
 
         void init();
 
@@ -34,6 +35,8 @@ public interface ConfigurationContract {
         void showLimitDialog();
 
         void revertSwipe();
+
+        void showCityInformation(UserCity userCity);
     }
 
     interface ModelContract {
@@ -44,6 +47,7 @@ public interface ConfigurationContract {
 
         void addCity(UserCity city);
 
+        void selectCity(UserCity userCity);
     }
 
 }

@@ -22,12 +22,13 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.bus.BusProvider;
-import br.com.porto.isabel.weather.mvp.configuration.places.PlacesDialogFragment;
 import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.mvp.configuration.places.PlacesDialogFragment;
+import br.com.porto.isabel.weather.mvp.home.HomeErrorFragment;
 import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
-import br.com.porto.isabel.weather.view.touch.CityTouchCallback;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityListAdapter;
+import br.com.porto.isabel.weather.view.touch.CityTouchCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -49,30 +50,30 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        configureMVP();
+
         View view = configureView(inflater, container);
-
-        UserCityRepository userCityRepository = new SharedPreferencesUserCityRepository(getActivity(), new Gson());
-
-        ConfigurationModel model = new ConfigurationModel(userCityRepository);
-        mPresenter = new ConfigurationPresenter(this, model);
-        model.setPresenter(mPresenter);
-
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new CityTouchCallback(mAdapter, mPresenter, getActivity(), getResources(), 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
-        mPresenter.init();
 
         mDialogFragment = PlacesDialogFragment.newInstance();
 
+        mPresenter.init();
+
+
         return view;
+    }
+
+    private void configureMVP() {
+        UserCityRepository userCityRepository = new SharedPreferencesUserCityRepository(getActivity(), new Gson());
+        ConfigurationModel model = new ConfigurationModel(userCityRepository);
+        mPresenter = new ConfigurationPresenter(this, model);
+        model.setPresenter(mPresenter);
     }
 
     private View configureView(LayoutInflater inflater, @Nullable ViewGroup container) {
         final View view = inflater.inflate(R.layout.configuration_fragment, container, false);
         ButterKnife.bind(this, view);
 
-        mAdapter = new UserCityListAdapter();
+        mAdapter = new UserCityListAdapter(mPresenter);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -80,6 +81,10 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
 
         ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         supportActionBar.setTitle(R.string.city_manager_menu);
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new CityTouchCallback(mAdapter, mPresenter, getActivity(), getResources(), 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +129,15 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     @Override
     public void revertSwipe() {
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showCityInformation(UserCity userCity) {
+        getFragmentManager().
+                beginTransaction().
+                replace(R.id.container, new HomeErrorFragment()).
+                addToBackStack(null).
+                commit();
     }
 
 

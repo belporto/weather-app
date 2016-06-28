@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:background="@color/background"
+    android:background="@drawable/recycler_view_background"
+    android:id="@+id/city_content"
     android:minHeight="48dp"
     android:padding="@dimen/default_margin">
 

@@ -39,4 +39,9 @@ public class ConfigurationModel implements ConfigurationContract.ModelContract {
     public void addCity(UserCity city) {
         mUserCityRepository.addCity(city);
     }
+
+    @Override
+    public void selectCity(UserCity userCity) {
+        mUserCityRepository.selectCity(userCity.getId());
+    }
 }

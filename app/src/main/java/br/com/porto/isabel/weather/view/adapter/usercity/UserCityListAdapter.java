@@ -11,12 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
+import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UserCityListAdapter extends RecyclerView.Adapter<UserCityListAdapter.ViewHolder> {
 
+    private UserCityListCallback mUserCityListCallback;
     private List<UserCity> mCityList;
 
     public UserCity getItem(int position) {
@@ -35,19 +37,30 @@ public class UserCityListAdapter extends RecyclerView.Adapter<UserCityListAdapte
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.city_name)
         public TextView cityName;
 
+        @BindView(R.id.city_content)
+        public View content;
+
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            content.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            UserCity userCity = mCityList.get(getAdapterPosition());
+            mUserCityListCallback.onCitySelected(userCity);
         }
     }
 
-    public UserCityListAdapter() {
+    public UserCityListAdapter(UserCityListCallback userCityListCallback) {
         mCityList = new ArrayList<>();
+        mUserCityListCallback = userCityListCallback;
     }
 
     public void setCityList(List<UserCity> cityList) {
