@@ -33,8 +33,13 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
 
         if (mCities == null) {
             setupDefaultCities();
-            mCurrent = mCities.get(0);
+            mCurrent = getFirstElement();
+            saveCurrentCity(mCurrent);
         }
+    }
+
+    private UserCity getFirstElement() {
+        return new ArrayList<>(mCities.values()).get(0);
     }
 
     @Override
@@ -46,6 +51,12 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
     @Override
     public void removeCity(String id) {
         mCities.remove(id);
+        if (mCurrent.getId().equals(id)) {
+            if (!mCities.isEmpty()) {
+                mCurrent = getFirstElement();
+                saveCurrentCity(mCurrent);
+            }
+        }
         saveCities(mCities);
     }
 
@@ -57,10 +68,7 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
     @Override
     public void selectCity(String id) {
         mCurrent = mCities.get(id);
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        String json = mGson.toJson(mCurrent);
-        editor.putString(CURRENT_CITY, json);
-        editor.commit();
+        saveCurrentCity(mCurrent);
     }
 
     @Override
@@ -68,9 +76,17 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
         return new ArrayList(mCities.values());
     }
 
+    private void saveCurrentCity(UserCity city) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        String json = mGson.toJson(city);
+        editor.putString(CURRENT_CITY, json);
+        editor.commit();
+    }
+
     private void setupDefaultCities() {
         String defaultCities = "{\"ChIJL6wn6oAOZ0gRoHExl6nHAAo\":{\"mId\":\"ChIJL6wn6oAOZ0gRoHExl6nHAAo\",\"mLat\":53.3498053,\"mLon\":-6.2603097,\"mName\":\"Dublin\"},\"ChIJ5TCOcRaYpBIRCmZHTz37sEQ\":{\"mId\":\"ChIJ5TCOcRaYpBIRCmZHTz37sEQ\",\"mLat\":41.38506389999999,\"mLon\":2.1734035,\"mName\":\"Barcelona\"},\"ChIJOwg_06VPwokRYv534QaPC8g\":{\"mId\":\"ChIJOwg_06VPwokRYv534QaPC8g\",\"mLat\":40.712783699999996,\"mLon\":-74.0059413,\"mName\":\"New York\"},\"ChIJdd4hrwug2EcRmSrV3Vo6llI\":{\"mId\":\"ChIJdd4hrwug2EcRmSrV3Vo6llI\",\"mLat\":51.5073509,\"mLon\":-0.1277583,\"mName\":\"London\"}}";
         mCities = getFromJSON(defaultCities);
+        saveCities(mCities);
     }
 
     private void saveCities(Map<String, UserCity> cities) {
