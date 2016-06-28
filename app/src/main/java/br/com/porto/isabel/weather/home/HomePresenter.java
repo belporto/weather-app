@@ -36,9 +36,14 @@ public class HomePresenter implements HomeContract.PresenterContract {
 
     @Override
     public void onCitySelected(UserCity city) {
-        mView.showProgress();
-        mModel.selectCity(city);
-        mModel.requestCurrentData();
+        UserCity currentCity = mModel.getCurrentCity();
+        boolean isDifferentCity = currentCity != null && city != null && !currentCity.equals(city);
+        if (isDifferentCity) {
+            mView.showProgress();
+            mModel.selectCity(city);
+            mModel.requestCurrentData();
+        }
+
     }
 
     @Override
@@ -49,6 +54,12 @@ public class HomePresenter implements HomeContract.PresenterContract {
     @Override
     public void onDailySelected(Daily daily) {
         mView.showDailyInformation(daily, mModel.getCurrentCity());
+    }
+
+    @Override
+    public void init() {
+        mView.showProgress();
+        mModel.requestCurrentData();
     }
 
     @Override

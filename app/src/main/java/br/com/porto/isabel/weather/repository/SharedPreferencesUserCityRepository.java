@@ -33,6 +33,7 @@ public class SharedPreferencesUserCityRepository implements UserCityRepository {
 
         if (mCities == null) {
             setupDefaultCities();
+            mCurrent = mCities.get(0);
         }
     }
 

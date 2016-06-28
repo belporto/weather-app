@@ -28,6 +28,8 @@ public interface HomeContract {
 
         void onDailySelected(Daily daily);
 
+        void init();
+
     }
 
     interface ViewContract {
@@ -64,6 +66,7 @@ public interface HomeContract {
         void selectCity(UserCity city);
 
         UserCity getCurrentCity();
+
     }
 
 }

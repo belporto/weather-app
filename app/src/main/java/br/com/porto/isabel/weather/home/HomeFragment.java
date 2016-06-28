@@ -94,13 +94,10 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
 
     private Spinner mSpinner;
 
-    private boolean firstTime;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        firstTime = true;
-
         UserCityRepository userCityRepository = new SharedPreferencesUserCityRepository(getActivity(), new Gson());
         HomeModel model = new HomeModel(new WeatherAPI(), userCityRepository);
         mPresenter = new HomePresenter(this, model);
@@ -119,6 +116,8 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         if (current != null && forecast != null) {
             showCurrentData(current);
             showForecast(forecast);
+        } else {
+            mPresenter.init();
         }
 
         return view;
@@ -228,11 +227,8 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!firstTime || mCurrent == null) {
-                    UserCity city = (UserCity) parent.getSelectedItem();
-                    mPresenter.onCitySelected(city);
-                }
-                firstTime = false;
+                UserCity city = (UserCity) parent.getSelectedItem();
+                mPresenter.onCitySelected(city);
             }
 
             @Override
