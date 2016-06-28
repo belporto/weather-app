@@ -40,7 +40,7 @@ public interface HomeContract {
 
         void showForecast(Forecast forecast);
 
-        void hideProgress();
+        void showContent();
 
         void hideSwipe();
 

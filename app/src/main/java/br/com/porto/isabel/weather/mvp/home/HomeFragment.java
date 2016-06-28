@@ -155,20 +155,6 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     }
 
     @Override
-    public void showProgress() {
-        mContent.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        mProgress.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        mProgress.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        mContent.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void showCurrentData(Current current) {
         mCurrent = current;
         cityNameTextView.setText(current.getCityName());
@@ -216,9 +202,23 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     }
 
     @Override
+    public void showProgress() {
+        mContent.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
+        mProgress.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showError() {
         mContent.setVisibility(View.GONE);
         errorView.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showContent() {
+        mContent.setVisibility(View.VISIBLE);
+        errorView.setVisibility(View.GONE);
         mProgress.setVisibility(View.GONE);
     }
 

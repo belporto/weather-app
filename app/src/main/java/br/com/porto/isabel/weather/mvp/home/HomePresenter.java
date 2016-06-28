@@ -18,15 +18,15 @@ public class HomePresenter implements HomeContract.PresenterContract {
     }
 
     @Override
-    public void onRequestCurrentWithSuccess(Current current) {
-        mView.showCurrentData(current);
-        mModel.requestDailyData();
+    public void init() {
+        mView.showProgress();
+        mModel.requestCurrentData();
     }
 
     @Override
-    public void onRequestCurrentWithError() {
-        hideProgress();
-        mView.showError();
+    public void onTryAgainClicked() {
+        mView.showProgress();
+        mModel.requestCurrentData();
     }
 
     @Override
@@ -44,7 +44,31 @@ public class HomePresenter implements HomeContract.PresenterContract {
             mModel.selectCity(city);
             mModel.requestCurrentData();
         }
+    }
 
+    @Override
+    public void onRequestCurrentWithSuccess(Current current) {
+        mView.showCurrentData(current);
+        mModel.requestDailyData();
+    }
+
+    @Override
+    public void onRequestDailyWithSuccess(Forecast forecast) {
+        mView.showForecast(forecast);
+        mView.showContent();
+        hideSwipe();
+    }
+
+    @Override
+    public void onRequestCurrentWithError() {
+        mView.showError();
+        hideSwipe();
+    }
+
+    @Override
+    public void onRequestDailyWithError() {
+        mView.showError();
+        hideSwipe();
     }
 
     @Override
@@ -57,37 +81,11 @@ public class HomePresenter implements HomeContract.PresenterContract {
         mView.showDailyInformation(daily, mModel.getCurrentCity());
     }
 
-    @Override
-    public void init() {
-        mView.showProgress();
-        mModel.requestCurrentData();
-    }
-
-    @Override
-    public void onTryAgainClicked() {
-        mView.showProgress();
-        mModel.requestCurrentData();
-    }
-
-    @Override
-    public void onRequestDailyWithSuccess(Forecast forecast) {
-        mView.showForecast(forecast);
-        hideProgress();
-    }
-
-    private void hideProgress() {
+    private void hideSwipe() {
         if (mSwipe) {
+            mSwipe = false;
             mView.hideSwipe();
-        } else {
-            mView.hideProgress();
         }
     }
-
-    @Override
-    public void onRequestDailyWithError() {
-        hideProgress();
-        mView.showError();
-    }
-
 
 }
