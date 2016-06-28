@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.daily;
+package br.com.porto.isabel.weather.mvp.daily;
 
 
 import br.com.porto.isabel.weather.model.Daily;

@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.configuration.places;
+package br.com.porto.isabel.weather.mvp.configuration.places;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

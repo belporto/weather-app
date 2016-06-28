@@ -9,8 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import br.com.porto.isabel.weather.configuration.ConfigurationFragment;
-import br.com.porto.isabel.weather.home.HomeFragment;
+import br.com.porto.isabel.weather.mvp.configuration.ConfigurationFragment;
+import br.com.porto.isabel.weather.mvp.home.HomeFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

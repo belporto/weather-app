@@ -11,6 +11,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.mvp.home.HomeModel;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import retrofit2.Callback;

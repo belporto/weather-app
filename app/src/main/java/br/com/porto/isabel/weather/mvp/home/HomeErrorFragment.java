@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.error;
+package br.com.porto.isabel.weather.mvp.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import br.com.porto.isabel.weather.R;
-import br.com.porto.isabel.weather.home.HomeFragment;
+import br.com.porto.isabel.weather.mvp.home.HomeFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ErrorFragment extends Fragment {
+public class HomeErrorFragment extends Fragment {
 
     @BindView(R.id.try_again)
     Button button;

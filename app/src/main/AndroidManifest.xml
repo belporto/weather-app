@@ -16,7 +16,7 @@
             android:value="<GOOGLE API KEY>" />
 
         <activity
-            android:name=".daily.DailyActivity"
+            android:name=".mvp.daily.DailyActivity"
             android:parentActivityName=".DrawerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

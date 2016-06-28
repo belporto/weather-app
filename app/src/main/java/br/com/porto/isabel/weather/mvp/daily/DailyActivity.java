@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.daily;
+package br.com.porto.isabel.weather.mvp.daily;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;

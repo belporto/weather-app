@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.home;
+package br.com.porto.isabel.weather.mvp.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,8 +26,7 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
-import br.com.porto.isabel.weather.daily.DailyActivity;
-import br.com.porto.isabel.weather.error.ErrorFragment;
+import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Daily;
@@ -204,7 +203,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     public void showError() {
         getFragmentManager().
                 beginTransaction().
-                replace(R.id.container, new ErrorFragment()).
+                replace(R.id.container, new HomeErrorFragment()).
                 addToBackStack(null).
                 commit();
     }

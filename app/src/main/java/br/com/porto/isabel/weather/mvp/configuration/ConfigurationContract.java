@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.configuration;
+package br.com.porto.isabel.weather.mvp.configuration;
 
 
 import java.util.List;

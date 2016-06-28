@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.configuration;
+package br.com.porto.isabel.weather.mvp.configuration;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.bus.BusProvider;
-import br.com.porto.isabel.weather.configuration.places.PlacesDialogFragment;
+import br.com.porto.isabel.weather.mvp.configuration.places.PlacesDialogFragment;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;

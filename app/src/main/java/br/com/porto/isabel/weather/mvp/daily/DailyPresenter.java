@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.daily;
+package br.com.porto.isabel.weather.mvp.daily;
 
 
 public class DailyPresenter implements DailyContract.PresenterContract {
