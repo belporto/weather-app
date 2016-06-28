@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.view;
+package br.com.porto.isabel.weather.view.adapter.daily;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,16 +12,15 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
-import br.com.porto.isabel.weather.home.HomeContract;
-import br.com.porto.isabel.weather.home.HomePresenter;
 import br.com.porto.isabel.weather.model.Daily;
+import br.com.porto.isabel.weather.view.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> {
 
-    private final HomeContract.PresenterContract mPresenter;
+    private final DailyCallback mDailyCallback;
     private DateFormatter mDateFormatter;
     private IconUtil mIconUtil;
     protected List<Daily> mDaily;
@@ -56,15 +55,15 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         @Override
         public void onClick(View v) {
             Daily daily = mDaily.get(getAdapterPosition());
-            mPresenter.onDailySelected(daily);
+            mDailyCallback.onDailySelected(daily);
         }
     }
 
-    public DailyAdapter(DateFormatter dateFormatter, IconUtil iconUtil, HomeContract.PresenterContract presenter) {
+    public DailyAdapter(DateFormatter dateFormatter, IconUtil iconUtil, DailyCallback dailyCallback) {
         mDateFormatter = dateFormatter;
         mDaily = new ArrayList<>();
         mIconUtil = iconUtil;
-        mPresenter = presenter;
+        mDailyCallback = dailyCallback;
     }
 
     public void setDailyList(List<Daily> daily) {

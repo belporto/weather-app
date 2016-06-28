@@ -36,7 +36,7 @@ import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
-import br.com.porto.isabel.weather.view.DailyAdapter;
+import br.com.porto.isabel.weather.view.adapter.daily.DailyAdapter;
 import br.com.porto.isabel.weather.view.DetailCustomView;
 import br.com.porto.isabel.weather.view.IconUtil;
 import br.com.porto.isabel.weather.view.UserCityAdapter;

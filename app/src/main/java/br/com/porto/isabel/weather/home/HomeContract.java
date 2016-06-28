@@ -7,10 +7,11 @@ import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.view.adapter.daily.DailyCallback;
 
 public interface HomeContract {
 
-    interface PresenterContract {
+    interface PresenterContract extends DailyCallback {
 
         void onRequestDailyWithSuccess(Forecast forecast);
 
@@ -25,8 +26,6 @@ public interface HomeContract {
         void onCitySelected(UserCity city);
 
         void onCreateOptionsMenu();
-
-        void onDailySelected(Daily daily);
 
         void init();
 
