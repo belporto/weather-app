@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
-import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
