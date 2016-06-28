@@ -16,6 +16,9 @@ public interface ConfigurationContract {
 
         void onCityClicked(UserCity city);
 
+        void onCitySizeLimitReached();
+
+        void onCityDeleted(UserCity city);
     }
 
     interface ViewContract {
@@ -27,6 +30,10 @@ public interface ConfigurationContract {
         void onCityDeleted(UserCity city);
 
         void onCityAdded(UserCity city);
+
+        void showLimitDialog();
+
+        void revertSwipe();
     }
 
     interface ModelContract {

@@ -1,10 +1,12 @@
 package br.com.porto.isabel.weather.configuration;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,10 +14,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -24,11 +24,10 @@ import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.bus.BusProvider;
 import br.com.porto.isabel.weather.configuration.places.PlacesDialogFragment;
 import br.com.porto.isabel.weather.model.user.UserCity;
-import br.com.porto.isabel.weather.repository.MemoryUserCityRepository;
 import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
-import br.com.porto.isabel.weather.view.UserCityListAdapter;
 import br.com.porto.isabel.weather.view.CityTouchCallback;
+import br.com.porto.isabel.weather.view.UserCityListAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -56,6 +55,7 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
 
         ConfigurationModel model = new ConfigurationModel(userCityRepository);
         mPresenter = new ConfigurationPresenter(this, model);
+        model.setPresenter(mPresenter);
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new CityTouchCallback(mAdapter, mPresenter, getActivity(), getResources(), 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -105,6 +105,27 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
         mAdapter.addCity(city);
     }
 
+    @Override
+    public void showLimitDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+        builder.setTitle(R.string.dialog_limit_title);
+        builder.setMessage(R.string.dialog_limit_message);
+        builder.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+
+    }
+
+    @Override
+    public void revertSwipe() {
+        mAdapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public void showCityDialog() {
@@ -126,6 +147,6 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
 
     @Subscribe
     public void onCitySelected(UserCity userCity) {
-       mPresenter.onCityClicked(userCity);
+        mPresenter.onCityClicked(userCity);
     }
 }

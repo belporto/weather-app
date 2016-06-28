@@ -29,10 +29,19 @@ public class ConfigurationPresenter implements ConfigurationContract.PresenterCo
         mView.onCityAdded(city);
     }
 
+    @Override
+    public void onCitySizeLimitReached() {
+        mView.revertSwipe();
+        mView.showLimitDialog();
+    }
+
+    @Override
+    public void onCityDeleted(UserCity city) {
+        mView.onCityDeleted(city);
+    }
 
     @Override
     public void onSwipe(UserCity city) {
         mModel.deleteCity(city);
-        mView.onCityDeleted(city);
     }
 }

@@ -7,10 +7,16 @@ import br.com.porto.isabel.weather.repository.UserCityRepository;
 
 public class ConfigurationModel implements ConfigurationContract.ModelContract {
 
+    private ConfigurationContract.PresenterContract mPresenter;
     private UserCityRepository mUserCityRepository;
 
     public ConfigurationModel(UserCityRepository userCityRepository) {
         mUserCityRepository = userCityRepository;
+
+    }
+
+    public void setPresenter(ConfigurationContract.PresenterContract presenter) {
+        mPresenter = presenter;
     }
 
     @Override
@@ -20,7 +26,12 @@ public class ConfigurationModel implements ConfigurationContract.ModelContract {
 
     @Override
     public void deleteCity(UserCity city) {
-        mUserCityRepository.removeCity(city.getId());
+        if (mUserCityRepository.getAll().size() > 1) {
+            mUserCityRepository.removeCity(city.getId());
+            mPresenter.onCityDeleted(city);
+        } else {
+            mPresenter.onCitySizeLimitReached();
+        }
     }
 
 
