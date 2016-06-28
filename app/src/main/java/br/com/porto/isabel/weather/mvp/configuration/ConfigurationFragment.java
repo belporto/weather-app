@@ -134,10 +134,9 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
 
     @Override
     public void showCityInformation(UserCity userCity) {
-        getFragmentManager().
+        getActivity().getSupportFragmentManager().
                 beginTransaction().
                 replace(R.id.container, new HomeFragment()).
-                addToBackStack(null).
                 commit();
     }
 

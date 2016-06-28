@@ -26,19 +26,19 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
-import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
 import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyAdapter;
+import br.com.porto.isabel.weather.view.adapter.usercity.UserCityAdapter;
 import br.com.porto.isabel.weather.view.customview.DetailCustomView;
 import br.com.porto.isabel.weather.view.util.IconUtil;
-import br.com.porto.isabel.weather.view.adapter.usercity.UserCityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -201,10 +201,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
 
     @Override
     public void showError() {
-        getFragmentManager().
+        getActivity().getSupportFragmentManager().
                 beginTransaction().
                 replace(R.id.container, new HomeErrorFragment()).
-                addToBackStack(null).
                 commit();
     }
 

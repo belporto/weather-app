@@ -71,14 +71,13 @@ public class DrawerActivity extends AppCompatActivity
             getSupportFragmentManager().
                     beginTransaction().
                     replace(R.id.container, new HomeFragment()).
-                    addToBackStack(null).
                     commit();
 
         } else if (id == R.id.nav_cities) {
             getSupportFragmentManager().
                     beginTransaction().
                     replace(R.id.container, new ConfigurationFragment()).
-                    addToBackStack(null).commit();
+                    commit();
 
         }
 

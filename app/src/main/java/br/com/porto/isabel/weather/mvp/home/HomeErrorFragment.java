@@ -35,7 +35,6 @@ public class HomeErrorFragment extends Fragment {
                 getActivity().getSupportFragmentManager().
                         beginTransaction().
                         replace(R.id.container, new HomeFragment()).
-                        addToBackStack(null).
                         commit();
             }
         });
