@@ -25,6 +25,7 @@ import br.com.porto.isabel.weather.bus.BusProvider;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.mvp.configuration.places.PlacesDialogFragment;
 import br.com.porto.isabel.weather.mvp.home.HomeErrorFragment;
+import br.com.porto.isabel.weather.mvp.home.HomeFragment;
 import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityListAdapter;
@@ -135,7 +136,7 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     public void showCityInformation(UserCity userCity) {
         getFragmentManager().
                 beginTransaction().
-                replace(R.id.container, new HomeErrorFragment()).
+                replace(R.id.container, new HomeFragment()).
                 addToBackStack(null).
                 commit();
     }
