@@ -85,10 +85,10 @@ public class DailyActivity extends AppCompatActivity implements DailyContract.Vi
 
         weekDayView.setText(dateFormatter.format(daily.getDate(), "EEEE"));
         descriptionView.setText(daily.getWeatherDescription());
-        temperatureView.setValue(daily.getMaxTemperature().intValue() + "° / " + daily.getMinTemperature().intValue() + "°");
-        humidityView.setValue(daily.getHumidity().intValue() + " %");
-        windView.setValue(daily.getWindSpeed().intValue() + " km/h   " + daily.getWindDegree().intValue() + " ° ");
-        pressureView.setValue(daily.getPressure().intValue() + " hPa");
+        temperatureView.setValue(daily.getMaxTemperature() + "° / " + daily.getMinTemperature() + "°");
+        humidityView.setValue(daily.getHumidity() + " %");
+        windView.setValue(daily.getWindSpeed() + " km/h   " + daily.getWindDegree() + " ° ");
+        pressureView.setValue(daily.getPressure() + " hPa");
 
     }
 }

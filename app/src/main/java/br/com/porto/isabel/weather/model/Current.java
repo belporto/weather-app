@@ -74,11 +74,11 @@ public class Current implements Parcelable {
     }
 
 
-    private int getValue(Double temperature) {
-        if (temperature == null) {
-            temperature = 0.0;
+    private int getValue(Double value) {
+        if (value == null) {
+            value = 0.0;
         }
-        return temperature.intValue();
+        return value.intValue();
     }
 
 

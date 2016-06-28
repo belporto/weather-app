@@ -34,24 +34,49 @@ public class Daily implements Parcelable {
     @SerializedName("clouds")
     private Double mClouds;
 
-    public Double getMinTemperature() {
-        return mTemperature.getMinTemperature();
+    public int getMinTemperature() {
+        return getValue(mTemperature.getMinTemperature());
     }
 
-    public Double getMaxTemperature() {
-        return mTemperature.getMaxTemperature();
+    public int getMaxTemperature() {
+        return getValue(mTemperature.getMaxTemperature());
     }
 
     public Date getDate() {
         return new Date(mUnixDate * 1000L);
     }
 
-    public Double getHumidity() {
-        return mHumidity;
+    public int getHumidity() {
+        return getValue(mHumidity);
     }
 
     public String getWeatherCode() {
         return mWeatherList.get(0).getCode();
+    }
+
+    public int getWindSpeed() {
+        int speed = getValue(mWindSpeed);
+        Double speedKMH = speed * 3.6;
+        return speedKMH.intValue();
+    }
+
+    public int getWindDegree() {
+        return getValue(mWindDirection);
+    }
+
+    public int getPressure() {
+        return getValue(mPressure);
+    }
+
+    public String getWeatherDescription() {
+        return mWeatherList.get(0).getDescription();
+    }
+
+    private int getValue(Double value) {
+        if (value == null) {
+            value = 0.0;
+        }
+        return value.intValue();
     }
 
     @Override
@@ -97,19 +122,5 @@ public class Daily implements Parcelable {
         }
     };
 
-    public Double getWindSpeed() {
-        return mWindSpeed * 3.6;
-    }
 
-    public Double getWindDegree() {
-        return mWindDirection;
-    }
-
-    public Double getPressure() {
-        return mPressure;
-    }
-
-    public String getWeatherDescription() {
-        return mWeatherList.get(0).getDescription();
-    }
 }

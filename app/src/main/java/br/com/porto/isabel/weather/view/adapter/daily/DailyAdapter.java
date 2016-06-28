@@ -81,9 +81,9 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Daily daily = mDaily.get(position);
-        holder.humidityTextView.setText(daily.getHumidity().intValue() + "%");
-        holder.maxTemperatureTextView.setText(daily.getMaxTemperature().intValue() + "°");
-        holder.minTemperatureTextView.setText(daily.getMinTemperature().intValue() + "°");
+        holder.humidityTextView.setText(daily.getHumidity() + "%");
+        holder.maxTemperatureTextView.setText(daily.getMaxTemperature() + "°");
+        holder.minTemperatureTextView.setText(daily.getMinTemperature() + "°");
         holder.weekDayTextView.setText(mDateFormatter.format(daily.getDate(), "EEE"));
         holder.weatherImageView.setImageResource(mIconUtil.getWeatherImageResource(daily.getWeatherCode()));
     }

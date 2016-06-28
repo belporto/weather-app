@@ -8,7 +8,12 @@ import java.util.Locale;
 public class DateFormatter {
 
     public String format(Date date, String pattern) {
-        SimpleDateFormat format = new SimpleDateFormat(pattern, new Locale("En"));
-        return format.format(date);
+        String formattedDate = "";
+        if (date != null) {
+            SimpleDateFormat format = new SimpleDateFormat(pattern, new Locale("En"));
+            formattedDate = format.format(date);
+        }
+
+        return formattedDate;
     }
 }
