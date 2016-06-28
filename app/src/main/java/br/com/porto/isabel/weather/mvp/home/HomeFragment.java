@@ -157,11 +157,11 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         mCurrent = current;
         cityNameTextView.setText(current.getCityName());
         weatherDescriptionTextView.setText(current.getWeatherDescription());
-        temperatureTextView.setText(current.getCurrentTemperature().intValue() + "°C");
+        temperatureTextView.setText(current.getCurrentTemperature() + "°C");
         weatherImage.setImageResource(mIconUtil.getWeatherImageResource(current.getWeatherCode()));
-        humidityView.setValue(current.getHumidity().intValue() + " %");
-        windView.setValue(current.getWindSpeed().intValue() + " km/h   " + current.getWindDegree().intValue() + " ° ");
-        pressureView.setValue(current.getPressure().intValue() + " hPa");
+        humidityView.setValue(current.getHumidity() + " %");
+        windView.setValue(current.getWindSpeed() + " km/h   " + current.getWindDegree() + " ° ");
+        pressureView.setValue(current.getPressure() + " hPa");
     }
 
     @Override

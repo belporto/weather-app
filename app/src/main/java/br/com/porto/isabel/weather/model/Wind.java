@@ -15,7 +15,7 @@ public class Wind implements Parcelable {
     private Double mDegree;
 
     public Double getSpeed() {
-        return mSpeed * 3.6;
+        return mSpeed;
     }
 
     public Double getDegree() {

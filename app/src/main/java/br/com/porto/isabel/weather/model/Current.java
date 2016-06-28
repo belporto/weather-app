@@ -45,29 +45,40 @@ public class Current implements Parcelable {
         return weather.getDescription();
     }
 
-    public String getWeatherCode(){
+    public String getWeatherCode() {
         Weather weather = mWeatherList.get(0);
         return weather.getCode();
     }
 
-    public Double getCurrentTemperature() {
-        return mMain.getTemperature();
+    public int getCurrentTemperature() {
+        return getValue(mMain.getTemperature());
     }
 
-    public Double getPressure() {
-        return mMain.getPressure();
+
+    public int getPressure() {
+        return getValue(mMain.getPressure());
     }
 
-    public Double getHumidity() {
-        return mMain.getHumidity();
+    public int getHumidity() {
+        return getValue(mMain.getHumidity());
     }
 
-    public Double getWindSpeed() {
-        return mWind.getSpeed();
+    public int getWindSpeed() {
+        int speed = getValue(mWind.getSpeed());
+        Double speedKMH = speed * 3.6;
+        return speedKMH.intValue();
     }
 
-    public Double getWindDegree() {
-        return mWind.getDegree();
+    public int getWindDegree() {
+        return getValue(mWind.getDegree());
+    }
+
+
+    private int getValue(Double temperature) {
+        if (temperature == null) {
+            temperature = 0.0;
+        }
+        return temperature.intValue();
     }
 
 
