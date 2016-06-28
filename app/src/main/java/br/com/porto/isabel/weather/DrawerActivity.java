@@ -47,7 +47,7 @@ public class DrawerActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             HomeFragment fragment = new HomeFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, fragment, CURRENT_FRAGMENT_TAG)
+                    .replace(R.id.container, fragment, CURRENT_FRAGMENT_TAG)
                     .commit();
         }
     }
