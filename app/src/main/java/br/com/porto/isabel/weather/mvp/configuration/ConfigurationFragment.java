@@ -20,6 +20,7 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
+import br.com.porto.isabel.weather.DrawerActivity;
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.bus.BusProvider;
 import br.com.porto.isabel.weather.model.user.UserCity;
@@ -134,10 +135,8 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
 
     @Override
     public void showCityInformation(UserCity userCity) {
-        getActivity().getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.container, new HomeFragment()).
-                commit();
+        DrawerActivity drawerActivity = (DrawerActivity) getActivity();
+        drawerActivity.selectItem(R.id.nav_home);
     }
 
 

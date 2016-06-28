@@ -49,7 +49,26 @@ public class DrawerActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, fragment, CURRENT_FRAGMENT_TAG)
                     .commit();
+            navigationView.setCheckedItem(R.id.nav_home);
         }
+
+    }
+
+    public void selectItem(int id) {
+        navigationView.setCheckedItem(id);
+        if (id == R.id.nav_home) {
+            getSupportFragmentManager().
+                    beginTransaction().
+                    replace(R.id.container, new HomeFragment()).
+                    commit();
+
+        } else if (id == R.id.nav_cities) {
+            getSupportFragmentManager().
+                    beginTransaction().
+                    replace(R.id.container, new ConfigurationFragment()).
+                    commit();
+        }
+
     }
 
     @Override
@@ -64,23 +83,8 @@ public class DrawerActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            getSupportFragmentManager().
-                    beginTransaction().
-                    replace(R.id.container, new HomeFragment()).
-                    commit();
-
-        } else if (id == R.id.nav_cities) {
-            getSupportFragmentManager().
-                    beginTransaction().
-                    replace(R.id.container, new ConfigurationFragment()).
-                    commit();
-
-        }
-
+        selectItem(id);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
