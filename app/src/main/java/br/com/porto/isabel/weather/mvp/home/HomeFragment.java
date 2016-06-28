@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -83,6 +84,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     @BindView(R.id.home_swipe_refresh)
     SwipeRefreshLayout mSwipeLayout;
 
+    @BindView(R.id.home_error)
+    View errorView;
+
     private Current mCurrent;
 
     private Forecast mForecast;
@@ -92,6 +96,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     private DailyAdapter mAdapter;
 
     private Spinner mSpinner;
+
+    @BindView(R.id.try_again)
+    Button tryAgainButton;
 
 
     @Nullable
@@ -137,18 +144,27 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
 
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.colorPrimary);
+
+        tryAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.onTryAgainClicked();
+            }
+        });
         return view;
     }
 
     @Override
     public void showProgress() {
         mContent.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
         mProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
         mProgress.setVisibility(View.GONE);
+        errorView.setVisibility(View.GONE);
         mContent.setVisibility(View.VISIBLE);
     }
 
@@ -201,10 +217,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
 
     @Override
     public void showError() {
-        getActivity().getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.container, new HomeErrorFragment()).
-                commit();
+        mContent.setVisibility(View.GONE);
+        errorView.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.GONE);
     }
 
     @Override

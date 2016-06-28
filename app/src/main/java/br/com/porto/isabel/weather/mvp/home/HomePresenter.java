@@ -25,6 +25,7 @@ public class HomePresenter implements HomeContract.PresenterContract {
 
     @Override
     public void onRequestCurrentWithError() {
+        hideProgress();
         mView.showError();
     }
 
@@ -63,8 +64,18 @@ public class HomePresenter implements HomeContract.PresenterContract {
     }
 
     @Override
+    public void onTryAgainClicked() {
+        mView.showProgress();
+        mModel.requestCurrentData();
+    }
+
+    @Override
     public void onRequestDailyWithSuccess(Forecast forecast) {
         mView.showForecast(forecast);
+        hideProgress();
+    }
+
+    private void hideProgress() {
         if (mSwipe) {
             mView.hideSwipe();
         } else {
@@ -74,6 +85,7 @@ public class HomePresenter implements HomeContract.PresenterContract {
 
     @Override
     public void onRequestDailyWithError() {
+        hideProgress();
         mView.showError();
     }
 

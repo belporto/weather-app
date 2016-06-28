@@ -29,6 +29,7 @@ public interface HomeContract {
 
         void init();
 
+        void onTryAgainClicked();
     }
 
     interface ViewContract {
