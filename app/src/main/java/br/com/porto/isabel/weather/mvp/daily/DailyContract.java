@@ -13,16 +13,12 @@ public interface DailyContract {
 
     interface ViewContract {
 
-
         void showCityName(String cityName);
 
         void showDailyData(Daily daily);
     }
 
     interface ModelContract {
-
-
-        void setPresenter(PresenterContract presenter);
 
         String getCityName();
 

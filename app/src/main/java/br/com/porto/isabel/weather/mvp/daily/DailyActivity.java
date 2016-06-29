@@ -67,7 +67,6 @@ public class DailyActivity extends AppCompatActivity implements DailyContract.Vi
 
         DailyModel model = new DailyModel(userCity, daily);
         DailyPresenter presenter = new DailyPresenter(this, model);
-        model.setPresenter(presenter);
         mPresenter = presenter;
 
         mPresenter.init();
