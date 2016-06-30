@@ -7,9 +7,7 @@ import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import br.com.porto.isabel.weather.service.WeatherAPICallback;
 
 public class HomeModel implements HomeContract.ModelContract {
 
@@ -30,20 +28,14 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public void requestDailyData() {
         UserCity currentCity = getCurrentCity();
-        mWeatherAPI.getDaily(currentCity.getLat(), currentCity.getLon(), new Callback<Forecast>() {
-
+        mWeatherAPI.getDaily(currentCity.getLat(), currentCity.getLon(), new WeatherAPICallback<Forecast>() {
             @Override
-            public void onResponse(Call<Forecast> call, Response<Forecast> response) {
-                if (response.isSuccessful()) {
-                    Forecast forecast = response.body();
-                    mPresenter.onRequestDailyWithSuccess(forecast);
-                } else {
-                    mPresenter.onRequestDailyWithError();
-                }
+            public void onSuccess(Forecast forecast) {
+                mPresenter.onRequestDailyWithSuccess(forecast);
             }
 
             @Override
-            public void onFailure(Call<Forecast> call, Throwable t) {
+            public void onFailure() {
                 mPresenter.onRequestDailyWithError();
             }
         });
@@ -52,20 +44,15 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public void requestCurrentData() {
         final UserCity currentCity = getCurrentCity();
-        mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new Callback<Current>() {
+        mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new WeatherAPICallback<Current>() {
             @Override
-            public void onResponse(Call<Current> call, Response<Current> response) {
-                if (response.isSuccessful()) {
-                    Current current = response.body();
-                    current.setCityName(currentCity.getName());
-                    mPresenter.onRequestCurrentWithSuccess(current);
-                } else {
-                    mPresenter.onRequestCurrentWithError();
-                }
+            public void onSuccess(Current current) {
+                current.setCityName(currentCity.getName());
+                mPresenter.onRequestCurrentWithSuccess(current);
             }
 
             @Override
-            public void onFailure(Call<Current> call, Throwable t) {
+            public void onFailure() {
                 mPresenter.onRequestCurrentWithError();
             }
         });
