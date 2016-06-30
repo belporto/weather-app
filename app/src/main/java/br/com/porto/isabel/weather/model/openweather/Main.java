@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.model;
+package br.com.porto.isabel.weather.model.openweather;
 
 
 import android.os.Parcel;

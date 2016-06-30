@@ -1,8 +1,8 @@
-package br.com.porto.isabel.weather.service.retrofit;
+package br.com.porto.isabel.weather.service.retrofit.openweather;
 
 
-import br.com.porto.isabel.weather.model.Current;
-import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.openweather.Current;
+import br.com.porto.isabel.weather.model.openweather.Forecast;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

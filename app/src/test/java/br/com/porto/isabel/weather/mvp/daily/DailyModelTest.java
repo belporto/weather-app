@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import br.com.porto.isabel.weather.model.Daily;
+import br.com.porto.isabel.weather.model.openweather.Daily;
 import br.com.porto.isabel.weather.model.user.UserCity;
 
 import static junit.framework.Assert.assertEquals;

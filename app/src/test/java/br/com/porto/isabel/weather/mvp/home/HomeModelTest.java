@@ -12,8 +12,10 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.Current;
-import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.openweather.Current;
+import br.com.porto.isabel.weather.model.openweather.Forecast;
+import br.com.porto.isabel.weather.model.user.CurrentInterface;
+import br.com.porto.isabel.weather.model.user.ForecastInterface;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
@@ -35,10 +37,10 @@ public class HomeModelTest {
     private UserCityRepository mUserCityRepository;
 
     @Captor
-    private ArgumentCaptor<WeatherAPICallback<Current>> mCurrentCapture;
+    private ArgumentCaptor<WeatherAPICallback<CurrentInterface>> mCurrentCapture;
 
     @Captor
-    private ArgumentCaptor<WeatherAPICallback<Forecast>> mDailyCapture;
+    private ArgumentCaptor<WeatherAPICallback<ForecastInterface>> mDailyCapture;
 
     @Mock
     private HomeContract.PresenterContract mPresenter;
@@ -66,7 +68,7 @@ public class HomeModelTest {
     @Test
     public void ensureWhenRequestCurrentDataFailureThenWillCallPresenterErrorMethod() throws Exception {
         UserCity city = new UserCity("name", 12.0, 12.0, "id");
-        WeatherAPICallback<Current> callback = getCurrentCallback(city);
+        WeatherAPICallback<CurrentInterface> callback = getCurrentCallback(city);
 
         callback.onFailure();
 
@@ -77,7 +79,7 @@ public class HomeModelTest {
     @Test
     public void ensureWhenRequestCurrentDataResponseIsSuccessfulThenWillCallPresenterSuccessMethod() throws Exception {
         UserCity city = new UserCity("name", 12.0, 12.0, "id");
-        WeatherAPICallback<Current> callback = getCurrentCallback(city);
+        WeatherAPICallback<CurrentInterface> callback = getCurrentCallback(city);
         Current current = new Current();
 
         callback.onSuccess(current);
@@ -85,7 +87,7 @@ public class HomeModelTest {
         verify(mPresenter).onRequestCurrentWithSuccess(current);
     }
 
-    private WeatherAPICallback<Current> getCurrentCallback(UserCity city) {
+    private WeatherAPICallback<CurrentInterface> getCurrentCallback(UserCity city) {
         when(mUserCityRepository.getCurrentCity()).thenReturn(city);
         mModel.requestCurrentData();
         verify(mWeatherAPI).getCurrent(eq(city.getLat()), eq(city.getLon()), mCurrentCapture.capture());
@@ -105,7 +107,7 @@ public class HomeModelTest {
     @Test
     public void ensureWhenRequestDailyDataFailureThenWillCallPresenterErrorMethod() throws Exception {
         UserCity city = new UserCity("name", 12.0, 12.0, "id");
-        WeatherAPICallback<Forecast> callback = getDailyCallback(city);
+        WeatherAPICallback<ForecastInterface> callback = getDailyCallback(city);
 
         callback.onFailure();
 
@@ -116,7 +118,7 @@ public class HomeModelTest {
     @Test
     public void ensureWhenRequestDailyDataResponseIsSuccessfulThenWillCallPresenterSuccessMethod() throws Exception {
         UserCity city = new UserCity("name", 12.0, 12.0, "id");
-        WeatherAPICallback<Forecast> callback = getDailyCallback(city);
+        WeatherAPICallback<ForecastInterface> callback = getDailyCallback(city);
         Forecast forecast = new Forecast();
 
         callback.onSuccess(forecast);
@@ -124,7 +126,7 @@ public class HomeModelTest {
         verify(mPresenter).onRequestDailyWithSuccess(forecast);
     }
 
-    private WeatherAPICallback<Forecast> getDailyCallback(UserCity city) {
+    private WeatherAPICallback<ForecastInterface> getDailyCallback(UserCity city) {
         when(mUserCityRepository.getCurrentCity()).thenReturn(city);
 
         mModel.requestDailyData();

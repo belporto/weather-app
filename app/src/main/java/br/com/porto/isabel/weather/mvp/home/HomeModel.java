@@ -2,8 +2,8 @@ package br.com.porto.isabel.weather.mvp.home;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.Current;
-import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.user.CurrentInterface;
+import br.com.porto.isabel.weather.model.user.ForecastInterface;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
@@ -28,9 +28,9 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public void requestDailyData() {
         UserCity currentCity = getCurrentCity();
-        mWeatherAPI.getDaily(currentCity.getLat(), currentCity.getLon(), new WeatherAPICallback<Forecast>() {
+        mWeatherAPI.getDaily(currentCity.getLat(), currentCity.getLon(), new WeatherAPICallback<ForecastInterface>() {
             @Override
-            public void onSuccess(Forecast forecast) {
+            public void onSuccess(ForecastInterface forecast) {
                 mPresenter.onRequestDailyWithSuccess(forecast);
             }
 
@@ -44,9 +44,9 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public void requestCurrentData() {
         final UserCity currentCity = getCurrentCity();
-        mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new WeatherAPICallback<Current>() {
+        mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new WeatherAPICallback<CurrentInterface>() {
             @Override
-            public void onSuccess(Current current) {
+            public void onSuccess(CurrentInterface current) {
                 current.setCityName(currentCity.getName());
                 mPresenter.onRequestCurrentWithSuccess(current);
             }

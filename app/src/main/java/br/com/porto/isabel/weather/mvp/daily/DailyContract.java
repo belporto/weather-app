@@ -1,13 +1,11 @@
 package br.com.porto.isabel.weather.mvp.daily;
 
 
-import br.com.porto.isabel.weather.model.Daily;
+import br.com.porto.isabel.weather.model.user.DailyInterface;
 
 public interface DailyContract {
 
     interface PresenterContract {
-
-
         void init();
     }
 
@@ -15,13 +13,13 @@ public interface DailyContract {
 
         void showCityName(String cityName);
 
-        void showDailyData(Daily daily);
+        void showDailyData(DailyInterface daily);
     }
 
     interface ModelContract {
 
         String getCityName();
 
-        Daily getDaily();
+        DailyInterface getDaily();
     }
 }

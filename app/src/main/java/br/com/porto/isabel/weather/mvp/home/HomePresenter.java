@@ -1,9 +1,9 @@
 package br.com.porto.isabel.weather.mvp.home;
 
 
-import br.com.porto.isabel.weather.model.Current;
-import br.com.porto.isabel.weather.model.Daily;
-import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.user.CurrentInterface;
+import br.com.porto.isabel.weather.model.user.DailyInterface;
+import br.com.porto.isabel.weather.model.user.ForecastInterface;
 import br.com.porto.isabel.weather.model.user.UserCity;
 
 public class HomePresenter implements HomeContract.PresenterContract {
@@ -47,13 +47,13 @@ public class HomePresenter implements HomeContract.PresenterContract {
     }
 
     @Override
-    public void onRequestCurrentWithSuccess(Current current) {
+    public void onRequestCurrentWithSuccess(CurrentInterface current) {
         mView.showCurrentData(current);
         mModel.requestDailyData();
     }
 
     @Override
-    public void onRequestDailyWithSuccess(Forecast forecast) {
+    public void onRequestDailyWithSuccess(ForecastInterface forecast) {
         mView.showForecast(forecast);
         mView.showContent();
         hideSwipe();
@@ -77,7 +77,7 @@ public class HomePresenter implements HomeContract.PresenterContract {
     }
 
     @Override
-    public void onDailySelected(Daily daily) {
+    public void onDailySelected(DailyInterface daily) {
         mView.showDailyInformation(daily, mModel.getCurrentCity());
     }
 

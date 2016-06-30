@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.model;
+package br.com.porto.isabel.weather.model.openweather;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
-public class Daily implements Parcelable {
+import br.com.porto.isabel.weather.model.user.DailyInterface;
+
+public class Daily implements DailyInterface {
 
     @SerializedName("dt")
     private Long mUnixDate;
@@ -34,40 +36,49 @@ public class Daily implements Parcelable {
     @SerializedName("clouds")
     private Double mClouds;
 
+    @Override
     public int getMinTemperature() {
         return getValue(mTemperature.getMinTemperature());
     }
 
+    @Override
     public int getMaxTemperature() {
         return getValue(mTemperature.getMaxTemperature());
     }
 
+    @Override
     public Date getDate() {
         return new Date(mUnixDate * 1000L);
     }
 
+    @Override
     public int getHumidity() {
         return getValue(mHumidity);
     }
 
+    @Override
     public String getWeatherCode() {
         return mWeatherList.get(0).getCode();
     }
 
+    @Override
     public int getWindSpeed() {
         int speed = getValue(mWindSpeed);
         Double speedKMH = speed * 3.6;
         return speedKMH.intValue();
     }
 
+    @Override
     public int getWindDegree() {
         return getValue(mWindDirection);
     }
 
+    @Override
     public int getPressure() {
         return getValue(mPressure);
     }
 
+    @Override
     public String getWeatherDescription() {
         return mWeatherList.get(0).getDescription();
     }

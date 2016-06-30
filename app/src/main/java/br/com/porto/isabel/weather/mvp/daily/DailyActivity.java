@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
-import br.com.porto.isabel.weather.model.Daily;
+import br.com.porto.isabel.weather.model.openweather.Daily;
+import br.com.porto.isabel.weather.model.user.DailyInterface;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.view.customview.DetailCustomView;
 import br.com.porto.isabel.weather.view.util.IconUtil;
@@ -78,7 +79,7 @@ public class DailyActivity extends AppCompatActivity implements DailyContract.Vi
     }
 
     @Override
-    public void showDailyData(Daily daily) {
+    public void showDailyData(DailyInterface daily) {
         Glide.with(this).load(mIconUtil.getWeatherImageLargeResource(daily.getWeatherCode())).centerCrop().into(imageView);
         DateFormatter dateFormatter = new DateFormatter();
 

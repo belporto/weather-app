@@ -10,9 +10,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.Current;
-import br.com.porto.isabel.weather.model.Daily;
-import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.openweather.Current;
+import br.com.porto.isabel.weather.model.openweather.Daily;
+import br.com.porto.isabel.weather.model.openweather.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
 
 import static org.mockito.Mockito.never;

@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.model;
+package br.com.porto.isabel.weather.model.openweather;
 
 
 import android.os.Parcel;
@@ -9,7 +9,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Current implements Parcelable {
+import br.com.porto.isabel.weather.model.user.CurrentInterface;
+
+public class Current implements CurrentInterface {
 
     @SerializedName("coord")
     private Coordinator mCoordinator;
@@ -36,39 +38,47 @@ public class Current implements Parcelable {
         mCityName = cityName;
     }
 
+    @Override
     public String getCityName() {
         return mCityName;
     }
 
+    @Override
     public String getWeatherDescription() {
         Weather weather = mWeatherList.get(0);
         return weather.getDescription();
     }
 
+    @Override
     public String getWeatherCode() {
         Weather weather = mWeatherList.get(0);
         return weather.getCode();
     }
 
+    @Override
     public int getCurrentTemperature() {
         return getValue(mMain.getTemperature());
     }
 
 
+    @Override
     public int getPressure() {
         return getValue(mMain.getPressure());
     }
 
+    @Override
     public int getHumidity() {
         return getValue(mMain.getHumidity());
     }
 
+    @Override
     public int getWindSpeed() {
         int speed = getValue(mWind.getSpeed());
         Double speedKMH = speed * 3.6;
         return speedKMH.intValue();
     }
 
+    @Override
     public int getWindDegree() {
         return getValue(mWind.getDegree());
     }

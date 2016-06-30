@@ -12,7 +12,7 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
-import br.com.porto.isabel.weather.model.Daily;
+import br.com.porto.isabel.weather.model.user.DailyInterface;
 import br.com.porto.isabel.weather.view.util.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +23,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
     private final DailyCallback mDailyCallback;
     private DateFormatter mDateFormatter;
     private IconUtil mIconUtil;
-    protected List<Daily> mDaily;
+    protected List<DailyInterface> mDaily;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -54,7 +54,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            Daily daily = mDaily.get(getAdapterPosition());
+            DailyInterface daily = mDaily.get(getAdapterPosition());
             mDailyCallback.onDailySelected(daily);
         }
     }
@@ -66,7 +66,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         mDailyCallback = dailyCallback;
     }
 
-    public void setDailyList(List<Daily> daily) {
+    public void setDailyList(List<DailyInterface> daily) {
         mDaily = daily;
         notifyDataSetChanged();
     }
@@ -80,15 +80,13 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Daily daily = mDaily.get(position);
+        DailyInterface daily = mDaily.get(position);
         holder.humidityTextView.setText(daily.getHumidity() + "%");
         holder.maxTemperatureTextView.setText(daily.getMaxTemperature() + "°");
         holder.minTemperatureTextView.setText(daily.getMinTemperature() + "°");
         holder.weekDayTextView.setText(mDateFormatter.format(daily.getDate(), "EEE"));
         holder.weatherImageView.setImageResource(mIconUtil.getWeatherImageResource(daily.getWeatherCode()));
     }
-
-
 
 
     @Override

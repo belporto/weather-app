@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.model;
+package br.com.porto.isabel.weather.model.openweather;
 
 
 import android.os.Parcel;
@@ -6,17 +6,24 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Forecast implements Parcelable {
+import br.com.porto.isabel.weather.model.user.DailyInterface;
+import br.com.porto.isabel.weather.model.user.ForecastInterface;
+
+public class Forecast implements ForecastInterface {
     @SerializedName("city")
     private City mCity;
 
     @SerializedName("list")
     private List<Daily> mDailyList;
 
-    public List<Daily> getDailyList() {
-        return mDailyList;
+    @Override
+    public List<DailyInterface> getDailyList() {
+        List<DailyInterface> dailyInterfaces = new ArrayList<>();
+        dailyInterfaces.addAll(mDailyList);
+        return dailyInterfaces;
     }
 
     @Override

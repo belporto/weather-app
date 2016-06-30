@@ -3,9 +3,9 @@ package br.com.porto.isabel.weather.mvp.home;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.Current;
-import br.com.porto.isabel.weather.model.Daily;
-import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.user.CurrentInterface;
+import br.com.porto.isabel.weather.model.user.DailyInterface;
+import br.com.porto.isabel.weather.model.user.ForecastInterface;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyCallback;
 
@@ -13,11 +13,11 @@ public interface HomeContract {
 
     interface PresenterContract extends DailyCallback {
 
-        void onRequestDailyWithSuccess(Forecast forecast);
+        void onRequestDailyWithSuccess(ForecastInterface forecast);
 
         void onRequestDailyWithError();
 
-        void onRequestCurrentWithSuccess(Current current);
+        void onRequestCurrentWithSuccess(CurrentInterface current);
 
         void onRequestCurrentWithError();
 
@@ -36,9 +36,9 @@ public interface HomeContract {
 
         void showProgress();
 
-        void showCurrentData(Current current);
+        void showCurrentData(CurrentInterface current);
 
-        void showForecast(Forecast forecast);
+        void showForecast(ForecastInterface forecast);
 
         void showContent();
 
@@ -48,8 +48,7 @@ public interface HomeContract {
 
         void showError();
 
-        void showDailyInformation(Daily daily, UserCity userCity);
-
+        void showDailyInformation(DailyInterface daily, UserCity userCity);
 
     }
 

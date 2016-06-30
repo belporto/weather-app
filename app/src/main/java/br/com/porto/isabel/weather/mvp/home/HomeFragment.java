@@ -28,16 +28,18 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
-import br.com.porto.isabel.weather.model.Current;
-import br.com.porto.isabel.weather.model.Daily;
-import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.model.openweather.Current;
+import br.com.porto.isabel.weather.model.openweather.Forecast;
+import br.com.porto.isabel.weather.model.user.CurrentInterface;
+import br.com.porto.isabel.weather.model.user.DailyInterface;
+import br.com.porto.isabel.weather.model.user.ForecastInterface;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
-import br.com.porto.isabel.weather.repository.cache.UserCityCachedRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;
 import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;
-import br.com.porto.isabel.weather.service.retrofit.RetrofitWeatherAPI;
+import br.com.porto.isabel.weather.repository.cache.UserCityCachedRepository;
+import br.com.porto.isabel.weather.service.retrofit.openweather.RetrofitWeatherAPI;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyAdapter;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityAdapter;
 import br.com.porto.isabel.weather.view.customview.DetailCustomView;
@@ -89,9 +91,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     @BindView(R.id.home_error)
     View errorView;
 
-    private Current mCurrent;
+    private CurrentInterface mCurrent;
 
-    private Forecast mForecast;
+    private ForecastInterface mForecast;
 
     private IconUtil mIconUtil;
 
@@ -159,7 +161,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     }
 
     @Override
-    public void showCurrentData(Current current) {
+    public void showCurrentData(CurrentInterface current) {
         mCurrent = current;
         cityNameTextView.setText(current.getCityName());
         weatherDescriptionTextView.setText(current.getWeatherDescription());
@@ -179,7 +181,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
 
 
     @Override
-    public void showForecast(Forecast forecast) {
+    public void showForecast(ForecastInterface forecast) {
         mForecast = forecast;
         mAdapter.setDailyList(forecast.getDailyList());
     }
@@ -227,7 +229,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     }
 
     @Override
-    public void showDailyInformation(Daily daily, UserCity userCity) {
+    public void showDailyInformation(DailyInterface daily, UserCity userCity) {
         Intent intent = new Intent(getActivity(), DailyActivity.class);
         intent.putExtra(DailyActivity.DAILY_EXTRA, daily);
         intent.putExtra(DailyActivity.USER_CITY, userCity);
