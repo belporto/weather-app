@@ -28,9 +28,9 @@ public interface ConfigurationContract {
 
         void showUserCity(List<UserCity> userCityList);
 
-        void onCityDeleted(UserCity city);
+        void deleteCity(UserCity city);
 
-        void onCityAdded(UserCity city);
+        void addCity(UserCity city);
 
         void showLimitDialog();
 

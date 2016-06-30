@@ -26,7 +26,7 @@ public class ConfigurationPresenter implements ConfigurationContract.PresenterCo
     @Override
     public void onCityClicked(UserCity city) {
         mModel.addCity(city);
-        mView.onCityAdded(city);
+        mView.addCity(city);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ConfigurationPresenter implements ConfigurationContract.PresenterCo
 
     @Override
     public void onCityDeleted(UserCity city) {
-        mView.onCityDeleted(city);
+        mView.deleteCity(city);
     }
 
     @Override

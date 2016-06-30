@@ -105,12 +105,12 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     }
 
     @Override
-    public void onCityDeleted(UserCity city) {
+    public void deleteCity(UserCity city) {
         mAdapter.removeCity(city);
     }
 
     @Override
-    public void onCityAdded(UserCity city) {
+    public void addCity(UserCity city) {
         mAdapter.addCity(city);
     }
 

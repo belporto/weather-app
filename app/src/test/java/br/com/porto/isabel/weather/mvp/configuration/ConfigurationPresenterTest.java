@@ -58,7 +58,7 @@ public class ConfigurationPresenterTest {
         mPresenter.onCityClicked(userCity);
 
         verify(mModel).addCity(userCity);
-        verify(mView).onCityAdded(userCity);
+        verify(mView).addCity(userCity);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ConfigurationPresenterTest {
 
         mPresenter.onCityDeleted(userCity);
 
-        verify(mView).onCityDeleted(userCity);
+        verify(mView).deleteCity(userCity);
     }
 
     @Test
