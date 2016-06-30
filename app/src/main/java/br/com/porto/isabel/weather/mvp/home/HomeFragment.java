@@ -33,8 +33,10 @@ import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
-import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
+import br.com.porto.isabel.weather.repository.UserCityCachedRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
+import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;
+import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyAdapter;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityAdapter;
@@ -104,7 +106,9 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        UserCityRepository userCityRepository = new SharedPreferencesUserCityRepository(getActivity(), new Gson());
+        Gson gson = new Gson();
+        UserCityCacheStrategy cacheStrategy = new SharedPreferencesUserCityCacheStrategy(getContext(), gson);
+        UserCityRepository userCityRepository = new UserCityCachedRepository(cacheStrategy, gson);
         HomeModel model = new HomeModel(new WeatherAPI(), userCityRepository);
         mPresenter = new HomePresenter(this, model);
         model.setPresenter(mPresenter);

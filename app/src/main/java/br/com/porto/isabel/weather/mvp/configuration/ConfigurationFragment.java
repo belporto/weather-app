@@ -25,8 +25,10 @@ import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.bus.BusProvider;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.mvp.configuration.places.PlacesDialogFragment;
-import br.com.porto.isabel.weather.repository.SharedPreferencesUserCityRepository;
+import br.com.porto.isabel.weather.repository.UserCityCachedRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
+import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;
+import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityListAdapter;
 import br.com.porto.isabel.weather.view.touch.CityTouchCallback;
 import butterknife.BindView;
@@ -63,7 +65,9 @@ public class ConfigurationFragment extends Fragment implements ConfigurationCont
     }
 
     private void configureMVP() {
-        UserCityRepository userCityRepository = new SharedPreferencesUserCityRepository(getActivity(), new Gson());
+        Gson gson = new Gson();
+        UserCityCacheStrategy cacheStrategy = new SharedPreferencesUserCityCacheStrategy(getContext(), gson);
+        UserCityRepository userCityRepository = new UserCityCachedRepository(cacheStrategy, gson);
         ConfigurationModel model = new ConfigurationModel(userCityRepository);
         mPresenter = new ConfigurationPresenter(this, model);
         model.setPresenter(mPresenter);
