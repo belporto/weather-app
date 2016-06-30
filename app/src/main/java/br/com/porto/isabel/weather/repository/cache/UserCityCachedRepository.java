@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.repository;
+package br.com.porto.isabel.weather.repository.cache;
 
 
 import com.google.gson.Gson;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;
 
 public class UserCityCachedRepository implements UserCityRepository {

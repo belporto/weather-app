@@ -33,7 +33,7 @@ import br.com.porto.isabel.weather.model.Daily;
 import br.com.porto.isabel.weather.model.Forecast;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
-import br.com.porto.isabel.weather.repository.UserCityCachedRepository;
+import br.com.porto.isabel.weather.repository.cache.UserCityCachedRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;
 import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;

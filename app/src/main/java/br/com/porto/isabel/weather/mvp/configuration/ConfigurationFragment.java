@@ -25,7 +25,7 @@ import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.bus.BusProvider;
 import br.com.porto.isabel.weather.model.user.UserCity;
 import br.com.porto.isabel.weather.mvp.configuration.places.PlacesDialogFragment;
-import br.com.porto.isabel.weather.repository.UserCityCachedRepository;
+import br.com.porto.isabel.weather.repository.cache.UserCityCachedRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;
 import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;
