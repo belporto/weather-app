@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.service;
+package br.com.porto.isabel.weather.service.retrofit;
 
 
 import br.com.porto.isabel.weather.model.Current;

@@ -37,7 +37,7 @@ import br.com.porto.isabel.weather.repository.cache.UserCityCachedRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;
 import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;
-import br.com.porto.isabel.weather.service.RetrofitWeatherAPI;
+import br.com.porto.isabel.weather.service.retrofit.RetrofitWeatherAPI;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyAdapter;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityAdapter;
 import br.com.porto.isabel.weather.view.customview.DetailCustomView;

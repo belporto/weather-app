@@ -1,8 +1,10 @@
-package br.com.porto.isabel.weather.service;
+package br.com.porto.isabel.weather.service.retrofit;
 
 import br.com.porto.isabel.weather.BuildConfig;
 import br.com.porto.isabel.weather.model.Current;
 import br.com.porto.isabel.weather.model.Forecast;
+import br.com.porto.isabel.weather.service.WeatherAPI;
+import br.com.porto.isabel.weather.service.WeatherAPICallback;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
