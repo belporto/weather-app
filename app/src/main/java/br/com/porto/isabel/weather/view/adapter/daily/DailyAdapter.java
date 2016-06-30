@@ -12,7 +12,7 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
-import br.com.porto.isabel.weather.model.user.DailyInterface;
+import br.com.porto.isabel.weather.model.app.DailyInterface;
 import br.com.porto.isabel.weather.view.util.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;

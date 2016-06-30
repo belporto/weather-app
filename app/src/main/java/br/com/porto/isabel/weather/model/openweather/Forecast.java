@@ -9,8 +9,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.user.DailyInterface;
-import br.com.porto.isabel.weather.model.user.ForecastInterface;
+import br.com.porto.isabel.weather.model.app.DailyInterface;
+import br.com.porto.isabel.weather.model.app.ForecastInterface;
 
 public class Forecast implements ForecastInterface {
     @SerializedName("city")

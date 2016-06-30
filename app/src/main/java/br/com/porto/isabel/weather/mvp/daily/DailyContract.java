@@ -1,7 +1,7 @@
 package br.com.porto.isabel.weather.mvp.daily;
 
 
-import br.com.porto.isabel.weather.model.user.DailyInterface;
+import br.com.porto.isabel.weather.model.app.DailyInterface;
 
 public interface DailyContract {
 

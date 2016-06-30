@@ -23,7 +23,7 @@ import java.util.List;
 import br.com.porto.isabel.weather.DrawerActivity;
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.bus.BusProvider;
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.mvp.configuration.places.PlacesDialogFragment;
 import br.com.porto.isabel.weather.repository.cache.UserCityCachedRepository;
 import br.com.porto.isabel.weather.repository.UserCityRepository;

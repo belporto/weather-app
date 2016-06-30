@@ -1,7 +1,7 @@
 package br.com.porto.isabel.weather.service;
 
-import br.com.porto.isabel.weather.model.user.CurrentInterface;
-import br.com.porto.isabel.weather.model.user.ForecastInterface;
+import br.com.porto.isabel.weather.model.app.CurrentInterface;
+import br.com.porto.isabel.weather.model.app.ForecastInterface;
 
 public interface WeatherAPI {
 

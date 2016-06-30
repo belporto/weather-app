@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 
 public class UserCityAdapter extends ArrayAdapter<UserCity> {
 

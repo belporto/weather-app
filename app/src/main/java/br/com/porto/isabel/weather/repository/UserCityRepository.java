@@ -3,7 +3,7 @@ package br.com.porto.isabel.weather.repository;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 
 public interface UserCityRepository {
 

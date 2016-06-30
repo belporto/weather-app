@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.user.DailyInterface;
+import br.com.porto.isabel.weather.model.app.DailyInterface;
 
 public class Daily implements DailyInterface {
 

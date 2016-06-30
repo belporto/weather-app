@@ -1,4 +1,4 @@
-package br.com.porto.isabel.weather.model.user;
+package br.com.porto.isabel.weather.model.app;
 
 
 import android.os.Parcel;

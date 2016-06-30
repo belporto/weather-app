@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 
 public class SharedPreferencesUserCityCacheStrategy implements UserCityCacheStrategy {
     private static final String USER_CITY_SHARED_PREFERENCES = "USER_CITY_SHARED_PREFERENCES";

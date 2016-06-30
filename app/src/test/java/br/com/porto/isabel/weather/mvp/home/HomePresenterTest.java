@@ -13,7 +13,7 @@ import java.util.List;
 import br.com.porto.isabel.weather.model.openweather.Current;
 import br.com.porto.isabel.weather.model.openweather.Daily;
 import br.com.porto.isabel.weather.model.openweather.Forecast;
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;

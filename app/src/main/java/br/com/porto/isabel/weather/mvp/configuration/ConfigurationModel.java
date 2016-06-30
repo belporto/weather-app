@@ -2,7 +2,7 @@ package br.com.porto.isabel.weather.mvp.configuration;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 
 public class ConfigurationModel implements ConfigurationContract.ModelContract {

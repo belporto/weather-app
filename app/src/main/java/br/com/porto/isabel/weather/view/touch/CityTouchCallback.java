@@ -13,7 +13,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import br.com.porto.isabel.weather.R;
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityListAdapter;
 
 

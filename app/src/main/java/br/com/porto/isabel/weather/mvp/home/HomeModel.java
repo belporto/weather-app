@@ -2,9 +2,9 @@ package br.com.porto.isabel.weather.mvp.home;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.user.CurrentInterface;
-import br.com.porto.isabel.weather.model.user.ForecastInterface;
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.CurrentInterface;
+import br.com.porto.isabel.weather.model.app.ForecastInterface;
+import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import br.com.porto.isabel.weather.service.WeatherAPICallback;

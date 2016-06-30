@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
-import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;
 
 public class UserCityCachedRepository implements UserCityRepository {
 

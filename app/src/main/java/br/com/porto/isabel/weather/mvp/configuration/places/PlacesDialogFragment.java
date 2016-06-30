@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.bus.BusProvider;
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.view.adapter.PlaceAutocompleteAdapter;
 
 

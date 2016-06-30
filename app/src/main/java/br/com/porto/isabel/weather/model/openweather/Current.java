@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.user.CurrentInterface;
+import br.com.porto.isabel.weather.model.app.CurrentInterface;
 
 public class Current implements CurrentInterface {
 

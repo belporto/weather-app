@@ -3,7 +3,7 @@ package br.com.porto.isabel.weather.mvp.configuration;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.user.UserCity;
+import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityListCallback;
 import br.com.porto.isabel.weather.view.touch.CityTouchCallbackContract;
 
