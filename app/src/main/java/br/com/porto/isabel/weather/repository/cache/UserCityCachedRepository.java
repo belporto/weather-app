@@ -50,8 +50,11 @@ public class UserCityCachedRepository implements UserCityRepository {
         if (mCurrent.getId().equals(id)) {
             if (!mCities.isEmpty()) {
                 mCurrent = getFirstElement();
-                mCacheStrategy.saveCurrentCity(mCurrent);
+            }else {
+                mCurrent = null;
             }
+
+            mCacheStrategy.saveCurrentCity(mCurrent);
         }
         mCacheStrategy.saveCities(mCities);
     }
