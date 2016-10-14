@@ -19,7 +19,6 @@ import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
-import br.com.porto.isabel.weather.service.WeatherAPICallback;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
