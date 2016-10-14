@@ -7,7 +7,7 @@ import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
-import br.com.porto.isabel.weather.service.WeatherAPICallback;
+import rx.Subscriber;
 
 public class HomeModel implements HomeContract.ModelContract {
 
@@ -28,15 +28,21 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public void requestDailyData() {
         UserCity currentCity = getCurrentCity();
-        mWeatherAPI.getDaily(currentCity.getLat(), currentCity.getLon(), new WeatherAPICallback<ForecastInterface>() {
+        mWeatherAPI.getDaily(currentCity.getLat(), currentCity.getLon(), new Subscriber<ForecastInterface>() {
+
             @Override
-            public void onSuccess(ForecastInterface forecast) {
-                mPresenter.onRequestDailyWithSuccess(forecast);
+            public void onCompleted() {
+
             }
 
             @Override
-            public void onFailure() {
+            public void onError(Throwable e) {
                 mPresenter.onRequestDailyWithError();
+            }
+
+            @Override
+            public void onNext(ForecastInterface forecast) {
+                mPresenter.onRequestDailyWithSuccess(forecast);
             }
         });
     }
@@ -44,16 +50,21 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public void requestCurrentData() {
         final UserCity currentCity = getCurrentCity();
-        mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new WeatherAPICallback<CurrentInterface>() {
+        mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new Subscriber<CurrentInterface>() {
             @Override
-            public void onSuccess(CurrentInterface current) {
-                current.setCityName(currentCity.getName());
-                mPresenter.onRequestCurrentWithSuccess(current);
+            public void onCompleted() {
+
             }
 
             @Override
-            public void onFailure() {
+            public void onError(Throwable e) {
                 mPresenter.onRequestCurrentWithError();
+            }
+
+            @Override
+            public void onNext(CurrentInterface current) {
+                current.setCityName(currentCity.getName());
+                mPresenter.onRequestCurrentWithSuccess(current);
             }
         });
     }
