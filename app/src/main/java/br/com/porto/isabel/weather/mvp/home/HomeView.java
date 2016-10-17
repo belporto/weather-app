@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -19,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.support.v4.widget.RxSwipeRefreshLayout;
+
 import java.util.List;
 
 import br.com.porto.isabel.weather.R;
@@ -31,9 +31,11 @@ import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyAdapter;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityAdapter;
 import br.com.porto.isabel.weather.view.customview.DetailCustomView;
+import br.com.porto.isabel.weather.view.rx.RxSpinner;
 import br.com.porto.isabel.weather.view.util.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
 
 /**
  * Created by isabelporto on 17/10/2016.
@@ -85,10 +87,6 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
     @BindView(R.id.try_again)
     Button tryAgainButton;
 
-    private CurrentInterface mCurrent;
-
-    private ForecastInterface mForecast;
-
     private IconUtil mIconUtil;
 
     private DailyAdapter mAdapter;
@@ -108,16 +106,10 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        mSwipeLayout.setColorSchemeResources(R.color.colorPrimary);
 
-//        mSwipeLayout.setOnRefreshListener(this);
-//        mSwipeLayout.setColorSchemeResources(R.color.colorPrimary);
-
-        tryAgainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.onTryAgainClicked();
-            }
-        });
+        //TODO: change to rxJava
+        tryAgainButton.setOnClickListener(v -> mPresenter.onTryAgainClicked());
     }
 
 
@@ -128,7 +120,6 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
 
     @Override
     public void showCurrentData(CurrentInterface current) {
-        mCurrent = current;
         cityNameTextView.setText(current.getCityName());
         weatherDescriptionTextView.setText(current.getWeatherDescription());
         temperatureTextView.setText(current.getCurrentTemperature() + "°C");
@@ -141,14 +132,8 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
 
     @Override
     public void showForecast(ForecastInterface forecast) {
-        mForecast = forecast;
         mAdapter.setDailyList(forecast.getDailyList());
     }
-
-//    @Override
-//    public void onRefresh() {
-//        mPresenter.onRefresh();
-//    }
 
     @Override
     public void hideSwipe() {
@@ -206,19 +191,18 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
 
         MenuItem item = menu.findItem(R.id.spinner);
         mSpinner = (Spinner) MenuItemCompat.getActionView(item);
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                UserCity city = (UserCity) parent.getSelectedItem();
-                mPresenter.onCitySelected(city);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         mPresenter.onCreateOptionsMenu();
+
+
+    }
+
+    public Observable<UserCity> observeSelectCity(){
+        return RxSpinner.selectItem(mSpinner);
+    }
+
+    @Override
+    public Observable<Void> observePullToRefresh() {
+        return RxSwipeRefreshLayout.refreshes(mSwipeLayout);
     }
 
 }

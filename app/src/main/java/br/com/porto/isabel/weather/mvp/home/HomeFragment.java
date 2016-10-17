@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.twistedequations.mvl.rx.AndroidRxSchedulers;
+import com.twistedequations.mvl.rx.DefaultAndroidRxSchedulers;
 
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;
@@ -34,12 +36,17 @@ public class HomeFragment extends Fragment {
         UserCityRepository userCityRepository = new UserCityCachedRepository(cacheStrategy, gson);
         HomeModel model = new HomeModel(new RetrofitWeatherAPI(), userCityRepository);
         mView = new HomeView(getContext());
-        HomePresenter presenter = new HomePresenter(mView, model);
+        HomePresenter presenter = new HomePresenter(mView, model, new DefaultAndroidRxSchedulers());
         mPresenter = presenter;
         mView.setPresente(presenter);
-        model.setPresenter(mPresenter);
         setHasOptionsMenu(true);
-        mPresenter.init();
+        mPresenter.onCreate();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
     }
 
     @Override

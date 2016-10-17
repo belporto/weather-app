@@ -13,24 +13,19 @@ import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.model.app.WeatherData;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyCallback;
+import rx.Observable;
 
 public interface HomeContract {
 
     interface PresenterContract extends DailyCallback {
 
-        void onRequestDataWithSuccess(WeatherData forecast);
-
-        void onRequestDataWithError();
-
-        void onRefresh();
-
-        void onCitySelected(UserCity city);
-
         void onCreateOptionsMenu();
 
-        void init();
+        void onCreate();
 
         void onTryAgainClicked();
+
+        void onDestroy();
     }
 
     interface ViewContract {
@@ -56,11 +51,13 @@ public interface HomeContract {
         void onCreateOptionsMenu(Menu menu, MenuInflater inflater);
 
         void setPresente(PresenterContract presenter);
+
+        Observable<UserCity> observeSelectCity();
+
+        Observable<Void> observePullToRefresh();
     }
 
     interface ModelContract {
-
-        void setPresenter(PresenterContract presenter);
 
         List<UserCity> getUserCityList();
 
@@ -68,7 +65,7 @@ public interface HomeContract {
 
         UserCity getCurrentCity();
 
-        void requestData();
+        Observable<WeatherData> requestData();
 
     }
 

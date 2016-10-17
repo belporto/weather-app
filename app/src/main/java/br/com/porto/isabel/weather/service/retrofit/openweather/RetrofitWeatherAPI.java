@@ -31,18 +31,12 @@ public class RetrofitWeatherAPI implements WeatherAPI {
     }
 
     @Override
-    public void getData(double lat, double lon, Subscriber<WeatherData> subscriber) {
-        Observable<Forecast> dailyObservable = mService.getDaily(BuildConfig.OPEN_WEATHER_MAP_API_KEY, lat, lon, NUM_OF_DAYS)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+    public Observable<WeatherData> getData(double lat, double lon) {
+        Observable<Forecast> dailyObservable = mService.getDaily(BuildConfig.OPEN_WEATHER_MAP_API_KEY, lat, lon, NUM_OF_DAYS);
 
-        Observable<Current> currentObservable =  mService.getCurrent(BuildConfig.OPEN_WEATHER_MAP_API_KEY, lat, lon).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+        Observable<Current> currentObservable =  mService.getCurrent(BuildConfig.OPEN_WEATHER_MAP_API_KEY, lat, lon);
 
-        Observable<WeatherData> combined = Observable.zip(dailyObservable, currentObservable, (forecast, current) ->  new WeatherData(current, forecast));
-
-        combined.subscribe(weatherData -> subscriber.onNext(weatherData), e -> subscriber.onError(e));
-
+       return Observable.zip(dailyObservable, currentObservable, (forecast, current) ->  new WeatherData(current, forecast));
     }
 
 }

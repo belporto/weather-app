@@ -39,7 +39,7 @@ public class HomePresenterTest {
 
     @Test
     public void ensurePresenterInitWillShowProgressAndRequestCurrentData() throws Exception {
-        mPresenter.init();
+        mPresenter.onCreate();
 
         verify(mView).showProgress();
         verify(mModel).requestCurrentData();
