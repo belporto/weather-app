@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
-import br.com.porto.isabel.weather.model.openweather.Daily;
 import br.com.porto.isabel.weather.model.app.DailyInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
+import br.com.porto.isabel.weather.model.openweather.Daily;
 import br.com.porto.isabel.weather.view.customview.DetailCustomView;
 import br.com.porto.isabel.weather.view.util.IconUtil;
 import butterknife.BindView;

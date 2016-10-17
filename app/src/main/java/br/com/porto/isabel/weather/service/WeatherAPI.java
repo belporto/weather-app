@@ -1,7 +1,5 @@
 package br.com.porto.isabel.weather.service;
 
-import br.com.porto.isabel.weather.model.app.CurrentInterface;
-import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.WeatherData;
 import rx.Subscriber;
 

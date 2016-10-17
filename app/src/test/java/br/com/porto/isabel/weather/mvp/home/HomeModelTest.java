@@ -12,11 +12,11 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.openweather.Current;
-import br.com.porto.isabel.weather.model.openweather.Forecast;
 import br.com.porto.isabel.weather.model.app.CurrentInterface;
 import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
+import br.com.porto.isabel.weather.model.openweather.Current;
+import br.com.porto.isabel.weather.model.openweather.Forecast;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 

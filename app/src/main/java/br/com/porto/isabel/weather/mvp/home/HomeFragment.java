@@ -28,12 +28,12 @@ import java.util.List;
 
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
-import br.com.porto.isabel.weather.model.openweather.Current;
-import br.com.porto.isabel.weather.model.openweather.Forecast;
 import br.com.porto.isabel.weather.model.app.CurrentInterface;
 import br.com.porto.isabel.weather.model.app.DailyInterface;
 import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
+import br.com.porto.isabel.weather.model.openweather.Current;
+import br.com.porto.isabel.weather.model.openweather.Forecast;
 import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;

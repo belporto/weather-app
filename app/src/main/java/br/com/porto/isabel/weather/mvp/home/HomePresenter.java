@@ -1,9 +1,7 @@
 package br.com.porto.isabel.weather.mvp.home;
 
 
-import br.com.porto.isabel.weather.model.app.CurrentInterface;
 import br.com.porto.isabel.weather.model.app.DailyInterface;
-import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.model.app.WeatherData;
 
