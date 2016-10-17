@@ -5,6 +5,7 @@ import br.com.porto.isabel.weather.model.app.CurrentInterface;
 import br.com.porto.isabel.weather.model.app.DailyInterface;
 import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
+import br.com.porto.isabel.weather.model.app.WeatherData;
 
 public class HomePresenter implements HomeContract.PresenterContract {
 
@@ -20,19 +21,19 @@ public class HomePresenter implements HomeContract.PresenterContract {
     @Override
     public void init() {
         mView.showProgress();
-        mModel.requestCurrentData();
+        mModel.requestData();
     }
 
     @Override
     public void onTryAgainClicked() {
         mView.showProgress();
-        mModel.requestCurrentData();
+        mModel.requestData();
     }
 
     @Override
     public void onRefresh() {
         mSwipe = true;
-        mModel.requestCurrentData();
+        mModel.requestData();
     }
 
     @Override
@@ -42,31 +43,20 @@ public class HomePresenter implements HomeContract.PresenterContract {
         if (isDifferentCity) {
             mView.showProgress();
             mModel.selectCity(city);
-            mModel.requestCurrentData();
+            mModel.requestData();
         }
     }
 
     @Override
-    public void onRequestCurrentWithSuccess(CurrentInterface current) {
-        mView.showCurrentData(current);
-        mModel.requestDailyData();
-    }
-
-    @Override
-    public void onRequestDailyWithSuccess(ForecastInterface forecast) {
-        mView.showForecast(forecast);
+    public void onRequestDataWithSuccess(WeatherData weatherData) {
+        mView.showCurrentData(weatherData.getCurrent());
+        mView.showForecast(weatherData.getForecast());
         mView.showContent();
         hideSwipe();
     }
 
     @Override
-    public void onRequestCurrentWithError() {
-        mView.showError();
-        hideSwipe();
-    }
-
-    @Override
-    public void onRequestDailyWithError() {
+    public void onRequestDataWithError() {
         mView.showError();
         hideSwipe();
     }

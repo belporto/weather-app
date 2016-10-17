@@ -7,19 +7,16 @@ import br.com.porto.isabel.weather.model.app.CurrentInterface;
 import br.com.porto.isabel.weather.model.app.DailyInterface;
 import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
+import br.com.porto.isabel.weather.model.app.WeatherData;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyCallback;
 
 public interface HomeContract {
 
     interface PresenterContract extends DailyCallback {
 
-        void onRequestDailyWithSuccess(ForecastInterface forecast);
+        void onRequestDataWithSuccess(WeatherData forecast);
 
-        void onRequestDailyWithError();
-
-        void onRequestCurrentWithSuccess(CurrentInterface current);
-
-        void onRequestCurrentWithError();
+        void onRequestDataWithError();
 
         void onRefresh();
 
@@ -56,15 +53,13 @@ public interface HomeContract {
 
         void setPresenter(PresenterContract presenter);
 
-        void requestDailyData();
-
-        void requestCurrentData();
-
         List<UserCity> getUserCityList();
 
         void selectCity(UserCity city);
 
         UserCity getCurrentCity();
+
+        void requestData();
 
     }
 

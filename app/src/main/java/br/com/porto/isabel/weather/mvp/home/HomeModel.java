@@ -2,9 +2,8 @@ package br.com.porto.isabel.weather.mvp.home;
 
 import java.util.List;
 
-import br.com.porto.isabel.weather.model.app.CurrentInterface;
-import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
+import br.com.porto.isabel.weather.model.app.WeatherData;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import rx.Subscriber;
@@ -26,50 +25,6 @@ public class HomeModel implements HomeContract.ModelContract {
     }
 
     @Override
-    public void requestDailyData() {
-        UserCity currentCity = getCurrentCity();
-        mWeatherAPI.getDaily(currentCity.getLat(), currentCity.getLon(), new Subscriber<ForecastInterface>() {
-
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mPresenter.onRequestDailyWithError();
-            }
-
-            @Override
-            public void onNext(ForecastInterface forecast) {
-                mPresenter.onRequestDailyWithSuccess(forecast);
-            }
-        });
-    }
-
-    @Override
-    public void requestCurrentData() {
-        final UserCity currentCity = getCurrentCity();
-        mWeatherAPI.getCurrent(currentCity.getLat(), currentCity.getLon(), new Subscriber<CurrentInterface>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mPresenter.onRequestCurrentWithError();
-            }
-
-            @Override
-            public void onNext(CurrentInterface current) {
-                current.setCityName(currentCity.getName());
-                mPresenter.onRequestCurrentWithSuccess(current);
-            }
-        });
-    }
-
-    @Override
     public List<UserCity> getUserCityList() {
         return mUserCityRepository.getAll();
     }
@@ -83,5 +38,27 @@ public class HomeModel implements HomeContract.ModelContract {
     @Override
     public UserCity getCurrentCity() {
         return mUserCityRepository.getCurrentCity();
+    }
+
+    @Override
+    public void requestData() {
+        final UserCity currentCity = getCurrentCity();
+        mWeatherAPI.getData(currentCity.getLat(), currentCity.getLon(), new Subscriber<WeatherData>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mPresenter.onRequestDataWithError();
+            }
+
+            @Override
+            public void onNext(WeatherData weatherData) {
+                weatherData.setCityName(currentCity.getName());
+                mPresenter.onRequestDataWithSuccess(weatherData);
+            }
+        });
     }
 }
