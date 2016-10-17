@@ -60,5 +60,6 @@ public class HomeModel implements HomeContract.ModelContract {
                 mPresenter.onRequestDataWithSuccess(weatherData);
             }
         });
+
     }
 }

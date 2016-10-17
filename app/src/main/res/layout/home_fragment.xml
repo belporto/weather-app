@@ -1,168 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_swipe_refresh"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:custom="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/home_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background"
-            android:orientation="vertical"
-            android:paddingTop="24dp">
+            android:fillViewport="true">
 
             <LinearLayout
-                android:id="@+id/home_error"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:background="@color/background"
                 android:orientation="vertical"
-                android:visibility="gone">
-                <include layout="@layout/error_fragment" />
-            </LinearLayout>
+                android:paddingTop="24dp">
 
-            <LinearLayout
-                android:id="@+id/home_progress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <ProgressBar
-                    style="@style/Widget.AppCompat.ProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:indeterminate="true" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/home_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <android.support.v7.widget.CardView
+                <LinearLayout
+                    android:id="@+id/home_error"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/card_margin">
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <LinearLayout
-                        style="@style/Widget.CardContent"
+                    <include layout="@layout/error_fragment" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/home_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ProgressBar
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/home_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/home_city_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="34sp"
-                            tools:text="Rio de Janeiro" />
-
-                        <TextView
-                            android:id="@+id/home_weather_description"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="24sp"
-                            tools:text="Clear" />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/card_margin">
 
                         <LinearLayout
+                            style="@style/Widget.CardContent"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_height="wrap_content">
 
                             <TextView
-                                android:id="@+id/home_temperature"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/home_city_name"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_weight="1"
-                                android:textSize="67sp"
-                                tools:text="20°" />
+                                android:textSize="34sp"
+                                tools:text="Rio de Janeiro" />
 
-                            <ImageView
-                                android:id="@+id/home_weather_image"
-                                android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/home_weather_description"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                tools:src="@drawable/ic_01d" />
+                                android:textSize="24sp"
+                                tools:text="Clear" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/home_temperature"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:textSize="67sp"
+                                    tools:text="20°" />
+
+                                <ImageView
+                                    android:id="@+id/home_weather_image"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:src="@drawable/ic_01d" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </android.support.v7.widget.CardView>
 
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/card_margin"
-                    android:layout_marginLeft="@dimen/card_margin"
-                    android:layout_marginRight="@dimen/card_margin">
-
-                    <LinearLayout
-                        style="@style/Widget.CardContent"
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/card_margin"
+                        android:layout_marginLeft="@dimen/card_margin"
+                        android:layout_marginRight="@dimen/card_margin">
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/home_daily_recycler_view"
+                        <LinearLayout
+                            style="@style/Widget.CardContent"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </LinearLayout>
+                            android:layout_height="wrap_content">
 
-                </android.support.v7.widget.CardView>
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/home_daily_recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/card_margin"
-                    android:layout_marginLeft="@dimen/card_margin"
-                    android:layout_marginRight="@dimen/card_margin">
+                    </android.support.v7.widget.CardView>
 
-                    <LinearLayout
-                        android:id="@+id/home_details_content"
-                        style="@style/Widget.CardContent"
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/card_margin"
+                        android:layout_marginLeft="@dimen/card_margin"
+                        android:layout_marginRight="@dimen/card_margin">
 
-                        <br.com.porto.isabel.weather.view.customview.DetailCustomView
-                            android:id="@+id/home_humidity_view"
+                        <LinearLayout
+                            android:id="@+id/home_details_content"
+                            style="@style/Widget.CardContent"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            custom:detailIcon="@drawable/ic_water"
-                            custom:detailTitle="@string/humidity_title" />
+                            android:layout_height="wrap_content">
 
-                        <br.com.porto.isabel.weather.view.customview.DetailCustomView
-                            android:id="@+id/home_pressure_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/default_margin"
-                            custom:detailIcon="@drawable/ic_pressure"
-                            custom:detailTitle="@string/pressure_title" />
+                            <br.com.porto.isabel.weather.view.customview.DetailCustomView
+                                android:id="@+id/home_humidity_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                custom:detailIcon="@drawable/ic_water"
+                                custom:detailTitle="@string/humidity_title" />
 
-                        <br.com.porto.isabel.weather.view.customview.DetailCustomView
-                            android:id="@+id/home_wind_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/default_margin"
-                            custom:detailIcon="@drawable/ic_weather_windy"
-                            custom:detailTitle="@string/wind_title" />
-                    </LinearLayout>
+                            <br.com.porto.isabel.weather.view.customview.DetailCustomView
+                                android:id="@+id/home_pressure_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/default_margin"
+                                custom:detailIcon="@drawable/ic_pressure"
+                                custom:detailTitle="@string/pressure_title" />
 
-                </android.support.v7.widget.CardView>
+                            <br.com.porto.isabel.weather.view.customview.DetailCustomView
+                                android:id="@+id/home_wind_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/default_margin"
+                                custom:detailIcon="@drawable/ic_weather_windy"
+                                custom:detailTitle="@string/wind_title" />
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-</android.support.v4.widget.SwipeRefreshLayout>
+</merge>
 

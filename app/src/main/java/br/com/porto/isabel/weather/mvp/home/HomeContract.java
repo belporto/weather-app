@@ -1,6 +1,10 @@
 package br.com.porto.isabel.weather.mvp.home;
 
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+
 import java.util.List;
 
 import br.com.porto.isabel.weather.model.app.CurrentInterface;
@@ -31,6 +35,8 @@ public interface HomeContract {
 
     interface ViewContract {
 
+        View getView();
+
         void showProgress();
 
         void showCurrentData(CurrentInterface current);
@@ -47,6 +53,9 @@ public interface HomeContract {
 
         void showDailyInformation(DailyInterface daily, UserCity userCity);
 
+        void onCreateOptionsMenu(Menu menu, MenuInflater inflater);
+
+        void setPresente(PresenterContract presenter);
     }
 
     interface ModelContract {
