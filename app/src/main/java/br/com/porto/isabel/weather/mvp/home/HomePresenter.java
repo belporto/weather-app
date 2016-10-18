@@ -3,7 +3,6 @@ package br.com.porto.isabel.weather.mvp.home;
 
 import com.twistedequations.mvl.rx.AndroidRxSchedulers;
 
-import br.com.porto.isabel.weather.model.app.DailyInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.model.app.WeatherData;
 import rx.Observable;
@@ -31,8 +30,16 @@ public class HomePresenter implements HomeContract.PresenterContract {
         compositeSubscription.add(subscribeRefresh());
         compositeSubscription.add(subscribeSelectCity());
         compositeSubscription.add(subscribeTryAgainClick());
+        compositeSubscription.add(subscribeDailyClicks());
+    }
 
-        //TODO: compositeSubscription.add(subscribeDailyClicks());
+    private Subscription subscribeDailyClicks() {
+        return mView.observeListItemClicks().subscribe(dailyEvent ->
+                {
+                    mView.showDailyInformation(dailyEvent.data, mModel.getCurrentCity());
+                }
+        );
+
     }
 
     private Subscription subscribeTryAgainClick() {
@@ -71,11 +78,6 @@ public class HomePresenter implements HomeContract.PresenterContract {
     @Override
     public void onDestroy() {
         compositeSubscription.clear();
-    }
-
-    @Override
-    public void onDailySelected(DailyInterface daily) {
-        mView.showDailyInformation(daily, mModel.getCurrentCity());
     }
 
     private Observable<WeatherData> observableLoadData(){

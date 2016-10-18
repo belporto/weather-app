@@ -13,6 +13,8 @@ import java.util.List;
 import br.com.porto.isabel.weather.R;
 import br.com.porto.isabel.weather.formatter.DateFormatter;
 import br.com.porto.isabel.weather.model.app.DailyInterface;
+import br.com.porto.isabel.weather.view.adapter.BaseHolder;
+import br.com.porto.isabel.weather.view.rx.RecycleViewItemClickListener;
 import br.com.porto.isabel.weather.view.util.IconUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,12 +22,12 @@ import butterknife.ButterKnife;
 
 public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> {
 
-    //private final DailyCallback mDailyCallback;
+    private RecycleViewItemClickListener mListener;
     private DateFormatter mDateFormatter;
     private IconUtil mIconUtil;
     protected List<DailyInterface> mDaily;
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends BaseHolder<DailyInterface> {
 
         @BindView(R.id.daily_week_day)
         public TextView weekDayTextView;
@@ -46,16 +48,13 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         public View content;
 
         public ViewHolder(View itemView) {
-            super(itemView);
+            super(itemView, mListener);
             ButterKnife.bind(this, itemView);
-            content.setOnClickListener(this);
         }
 
-
         @Override
-        public void onClick(View v) {
-            DailyInterface daily = mDaily.get(getAdapterPosition());
-           // mDailyCallback.onDailySelected(daily);
+        protected DailyInterface getData(int adapterPosition) {
+            return mDaily.get(getAdapterPosition());
         }
     }
 
@@ -63,7 +62,10 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         mDateFormatter = dateFormatter;
         mDaily = new ArrayList<>();
         mIconUtil = iconUtil;
-        //mDailyCallback = dailyCallback;
+    }
+
+    public void setListener(RecycleViewItemClickListener listener) {
+        mListener = listener;
     }
 
     public void setDailyList(List<DailyInterface> daily) {

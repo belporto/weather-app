@@ -10,6 +10,7 @@ import br.com.porto.isabel.weather.app.builder.module.WeatherComponent;
 import br.com.porto.isabel.weather.app.builder.module.WeatherModule;
 import br.com.porto.isabel.weather.mvp.home.HomeFragment;
 import br.com.porto.isabel.weather.mvp.home.builder.DaggerHomeFragmentComponent;
+import br.com.porto.isabel.weather.mvp.home.builder.HomeFragmentModule;
 
 /**
  * Created by isabelporto on 18/10/2016.
@@ -46,7 +47,9 @@ public class DefaultWeatherInjector implements WeatherInjector {
     @Override
     public void inject(HomeFragment fragment) {
         DaggerHomeFragmentComponent.builder()
+                .homeFragmentModule(new HomeFragmentModule(fragment.getActivity()))
                 .weatherComponent(getComponent())
-                .build().inject(fragment);
+                .build()
+                .inject(fragment);
     }
 }

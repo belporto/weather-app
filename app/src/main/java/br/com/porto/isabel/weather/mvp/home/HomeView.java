@@ -1,6 +1,6 @@
 package br.com.porto.isabel.weather.mvp.home;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +27,8 @@ import br.com.porto.isabel.weather.mvp.daily.DailyActivity;
 import br.com.porto.isabel.weather.view.adapter.daily.DailyAdapter;
 import br.com.porto.isabel.weather.view.adapter.usercity.UserCityAdapter;
 import br.com.porto.isabel.weather.view.customview.DetailCustomView;
+import br.com.porto.isabel.weather.view.rx.OnSubscribeRecyclerViewOnClick;
+import br.com.porto.isabel.weather.view.rx.RecyclerClickEvent;
 import br.com.porto.isabel.weather.view.rx.RxSpinner;
 import br.com.porto.isabel.weather.view.util.IconUtil;
 import butterknife.BindView;
@@ -79,7 +81,6 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
     @BindView(R.id.home_error)
     View errorView;
 
-
     @BindView(R.id.try_again)
     Button tryAgainButton;
 
@@ -91,8 +92,11 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
     @BindView(R.id.home_city_selection)
     Spinner mSpinner;
 
-    public HomeView(Context context) {
-        super(context);
+    Activity mActivity;
+
+    public HomeView(Activity activity) {
+        super(activity);
+        mActivity = activity;
         inflate(getContext(), R.layout.home_fragment, this);
         ButterKnife.bind(this);
         mIconUtil = new IconUtil(this.getResources(), getContext().getPackageName());
@@ -169,7 +173,8 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
         Intent intent = new Intent(getContext(), DailyActivity.class);
         intent.putExtra(DailyActivity.DAILY_EXTRA, daily);
         intent.putExtra(DailyActivity.USER_CITY, userCity);
-        //TODO: startActivity(intent);
+
+        mActivity.startActivity(intent);
     }
 
     public Observable<UserCity> observeSelectCity(){
@@ -184,6 +189,11 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
     @Override
     public Observable<Void> observeTryAgainClick() {
         return RxView.clicks(tryAgainButton);
+    }
+
+    @Override
+    public Observable<RecyclerClickEvent<DailyInterface>> observeListItemClicks() {
+        return Observable.create(new OnSubscribeRecyclerViewOnClick<>(mAdapter::setListener));
     }
 
 }

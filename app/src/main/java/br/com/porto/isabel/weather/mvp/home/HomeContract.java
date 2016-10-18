@@ -10,12 +10,12 @@ import br.com.porto.isabel.weather.model.app.DailyInterface;
 import br.com.porto.isabel.weather.model.app.ForecastInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
 import br.com.porto.isabel.weather.model.app.WeatherData;
-import br.com.porto.isabel.weather.view.adapter.daily.DailyCallback;
+import br.com.porto.isabel.weather.view.rx.RecyclerClickEvent;
 import rx.Observable;
 
 public interface HomeContract {
 
-    interface PresenterContract extends DailyCallback {
+    interface PresenterContract {
 
         void onCreate();
 
@@ -47,6 +47,8 @@ public interface HomeContract {
         Observable<Void> observePullToRefresh();
 
         Observable<Void> observeTryAgainClick();
+
+        Observable<RecyclerClickEvent<DailyInterface>> observeListItemClicks();
     }
 
     interface ModelContract {

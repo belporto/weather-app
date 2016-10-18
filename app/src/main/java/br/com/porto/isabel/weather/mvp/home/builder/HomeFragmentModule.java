@@ -1,6 +1,6 @@
 package br.com.porto.isabel.weather.mvp.home.builder;
 
-import android.content.Context;
+import android.app.Activity;
 
 import com.twistedequations.mvl.rx.AndroidRxSchedulers;
 
@@ -21,6 +21,12 @@ import dagger.Provides;
 @Module
 public class HomeFragmentModule {
 
+    private Activity mActivity;
+
+    public HomeFragmentModule(Activity activity) {
+        mActivity = activity;
+    }
+
     @Provides
     @HomeFragmentScope
     public HomeContract.ModelContract provideModule(UserCityRepository userCityRepository, WeatherAPI weatherAPI) {
@@ -29,8 +35,8 @@ public class HomeFragmentModule {
 
     @Provides
     @HomeFragmentScope
-    public HomeContract.ViewContract provideView(Context context) {
-        return new HomeView(context);
+    public HomeContract.ViewContract provideView() {
+        return new HomeView(mActivity);
     }
 
     @Provides
