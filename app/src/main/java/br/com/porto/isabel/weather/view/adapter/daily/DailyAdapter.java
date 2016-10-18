@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 
 public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> {
 
-    private final DailyCallback mDailyCallback;
+    //private final DailyCallback mDailyCallback;
     private DateFormatter mDateFormatter;
     private IconUtil mIconUtil;
     protected List<DailyInterface> mDaily;
@@ -59,11 +59,11 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         }
     }
 
-    public DailyAdapter(DateFormatter dateFormatter, IconUtil iconUtil, DailyCallback dailyCallback) {
+    public DailyAdapter(DateFormatter dateFormatter, IconUtil iconUtil) {
         mDateFormatter = dateFormatter;
         mDaily = new ArrayList<>();
         mIconUtil = iconUtil;
-        mDailyCallback = dailyCallback;
+        //mDailyCallback = dailyCallback;
     }
 
     public void setDailyList(List<DailyInterface> daily) {

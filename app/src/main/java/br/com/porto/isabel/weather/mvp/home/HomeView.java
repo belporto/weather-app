@@ -2,15 +2,10 @@ package br.com.porto.isabel.weather.mvp.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.support.v4.widget.RxSwipeRefreshLayout;
+import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.List;
 
@@ -91,31 +87,22 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
 
     private DailyAdapter mAdapter;
 
-    private Spinner mSpinner;
 
-    private HomeContract.PresenterContract mPresenter;
+    @BindView(R.id.home_city_selection)
+    Spinner mSpinner;
 
     public HomeView(Context context) {
         super(context);
         inflate(getContext(), R.layout.home_fragment, this);
         ButterKnife.bind(this);
         mIconUtil = new IconUtil(this.getResources(), getContext().getPackageName());
-        mAdapter = new DailyAdapter(new DateFormatter(), mIconUtil, mPresenter);
+        mAdapter = new DailyAdapter(new DateFormatter(), mIconUtil);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
         mSwipeLayout.setColorSchemeResources(R.color.colorPrimary);
-
-        //TODO: change to rxJava
-        tryAgainButton.setOnClickListener(v -> mPresenter.onTryAgainClicked());
-    }
-
-
-    @Override
-    public void setPresente(HomeContract.PresenterContract presenter) {
-        mPresenter = presenter;
     }
 
     @Override
@@ -185,17 +172,6 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
         //TODO: startActivity(intent);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.toolbar_home_menu, menu);
-
-        MenuItem item = menu.findItem(R.id.spinner);
-        mSpinner = (Spinner) MenuItemCompat.getActionView(item);
-        mPresenter.onCreateOptionsMenu();
-
-
-    }
-
     public Observable<UserCity> observeSelectCity(){
         return RxSpinner.selectItem(mSpinner);
     }
@@ -203,6 +179,11 @@ public class HomeView extends FrameLayout implements HomeContract.ViewContract {
     @Override
     public Observable<Void> observePullToRefresh() {
         return RxSwipeRefreshLayout.refreshes(mSwipeLayout);
+    }
+
+    @Override
+    public Observable<Void> observeTryAgainClick() {
+        return RxView.clicks(tryAgainButton);
     }
 
 }

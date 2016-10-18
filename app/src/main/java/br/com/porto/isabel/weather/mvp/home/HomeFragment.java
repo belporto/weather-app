@@ -6,11 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 
 import javax.inject.Inject;
 
@@ -27,11 +24,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         WeatherAppGraph.get().inject(this);
-
-        mView.setPresente(mPresenter);
-        setHasOptionsMenu(true);
         mPresenter.onCreate();
     }
 
@@ -62,10 +55,4 @@ public class HomeFragment extends Fragment {
         return mView.getView();
     }
 
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        mView.onCreateOptionsMenu(menu, inflater);
-    }
 }

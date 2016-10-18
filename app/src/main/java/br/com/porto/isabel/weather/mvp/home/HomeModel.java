@@ -8,7 +8,6 @@ import br.com.porto.isabel.weather.model.app.WeatherData;
 import br.com.porto.isabel.weather.repository.UserCityRepository;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import rx.Observable;
-import rx.Subscriber;
 
 public class HomeModel implements HomeContract.ModelContract {
 

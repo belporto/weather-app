@@ -54,6 +54,12 @@
                     android:orientation="vertical"
                     android:visibility="visible">
 
+                    <Spinner
+                        android:id="@+id/home_city_selection"
+                        android:layout_margin="@dimen/card_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

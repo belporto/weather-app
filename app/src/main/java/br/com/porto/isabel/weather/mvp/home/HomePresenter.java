@@ -26,19 +26,27 @@ public class HomePresenter implements HomeContract.PresenterContract {
 
     @Override
     public void onCreate() {
+        mView.showCityList(mModel.getUserCityList(), mModel.getCurrentCity());
         compositeSubscription.add(subscribeLoadWeatherData());
         compositeSubscription.add(subscribeRefresh());
+        compositeSubscription.add(subscribeSelectCity());
+        compositeSubscription.add(subscribeTryAgainClick());
 
         //TODO: compositeSubscription.add(subscribeDailyClicks());
+    }
+
+    private Subscription subscribeTryAgainClick() {
+        return mView.observeTryAgainClick()
+                .doOnNext(aVoid -> mView.showProgress())
+                .switchMap(aVoid -> observableLoadData())
+                .subscribe(setDataViewBlock, errorBlock);
     }
 
     private Subscription subscribeLoadWeatherData() {
         return Observable.just(null)
                 .doOnNext(aVoid -> mView.showProgress())
-                .switchMap(aVoid -> observableLoadData())// pull to refresh event
-                .subscribe(setDataViewBlock, e -> {
-                    mView.showError();
-                });
+                .switchMap(aVoid -> observableLoadData())
+                .subscribe(setDataViewBlock, errorBlock);
     }
 
     private Subscription subscribeSelectCity() {
@@ -49,39 +57,20 @@ public class HomePresenter implements HomeContract.PresenterContract {
                 })
                 .doOnNext(aVoid -> mView.showProgress())
                 .doOnNext(userCity -> mModel.selectCity(userCity))
-                .switchMap(aVoid -> observableLoadData())// pull to refresh event
-                .subscribe(setDataViewBlock, e -> {
-                    mView.showError();
-                });
+                .switchMap(aVoid -> observableLoadData())
+                .subscribe(setDataViewBlock, errorBlock);
     }
 
 
     private Subscription subscribeRefresh() {
         return mView.observePullToRefresh()
-                .switchMap(aVoid -> observableLoadData())// pull to refresh event
-                .subscribe(setDataViewBlock, e -> {
-                    mView.showError();
-                    mView.hideSwipe();
-                });
-    }
-
-
-
-    @Override
-    public void onTryAgainClicked() {
-        mView.showProgress();
-        mModel.requestData();
+                .switchMap(aVoid -> observableLoadData())
+                .subscribe(setDataViewBlock, errorBlock);
     }
 
     @Override
     public void onDestroy() {
         compositeSubscription.clear();
-    }
-
-    @Override
-    public void onCreateOptionsMenu() {
-        mView.showCityList(mModel.getUserCityList(), mModel.getCurrentCity());
-        compositeSubscription.add(subscribeSelectCity());
     }
 
     @Override
@@ -101,6 +90,11 @@ public class HomePresenter implements HomeContract.PresenterContract {
         mView.showCurrentData(weatherData.getCurrent());
         mView.showForecast(weatherData.getForecast());
         mView.showContent();
+        mView.hideSwipe();
+    };
+
+    private final Action1<Throwable> errorBlock = e -> {
+        mView.showError();
         mView.hideSwipe();
     };
 }
