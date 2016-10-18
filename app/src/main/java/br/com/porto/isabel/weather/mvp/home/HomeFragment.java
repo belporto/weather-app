@@ -11,34 +11,26 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.Gson;
-import com.twistedequations.mvl.rx.AndroidRxSchedulers;
-import com.twistedequations.mvl.rx.DefaultAndroidRxSchedulers;
 
-import br.com.porto.isabel.weather.repository.UserCityRepository;
-import br.com.porto.isabel.weather.repository.cache.SharedPreferencesUserCityCacheStrategy;
-import br.com.porto.isabel.weather.repository.cache.UserCityCacheStrategy;
-import br.com.porto.isabel.weather.repository.cache.UserCityCachedRepository;
-import br.com.porto.isabel.weather.service.retrofit.openweather.RetrofitWeatherAPI;
+import javax.inject.Inject;
+
+import br.com.porto.isabel.weather.WeatherAppGraph;
 
 public class HomeFragment extends Fragment {
 
-    private HomeContract.PresenterContract mPresenter;
+    @Inject
+    HomeContract.PresenterContract mPresenter;
 
-    private HomeContract.ViewContract mView;
+    @Inject
+    HomeContract.ViewContract mView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Gson gson = new Gson();
-        UserCityCacheStrategy cacheStrategy = new SharedPreferencesUserCityCacheStrategy(getContext(), gson);
-        UserCityRepository userCityRepository = new UserCityCachedRepository(cacheStrategy, gson);
-        HomeModel model = new HomeModel(new RetrofitWeatherAPI(), userCityRepository);
-        mView = new HomeView(getContext());
-        HomePresenter presenter = new HomePresenter(mView, model, new DefaultAndroidRxSchedulers());
-        mPresenter = presenter;
-        mView.setPresente(presenter);
+        WeatherAppGraph.get().inject(this);
+
+        mView.setPresente(mPresenter);
         setHasOptionsMenu(true);
         mPresenter.onCreate();
     }
