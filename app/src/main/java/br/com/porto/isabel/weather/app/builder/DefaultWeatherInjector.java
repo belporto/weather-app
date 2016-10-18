@@ -28,17 +28,17 @@ public class DefaultWeatherInjector implements WeatherInjector {
     public WeatherComponent getComponent() {
         if (component == null) {
             //Lazy init for startup performance
-            component = buildWeatherComponent(context.getApplicationContext());
+            component = buildWeatherComponent(context);
         }
         return component;
     }
 
-    private WeatherComponent buildWeatherComponent(Context applicationContext) {
+    private WeatherComponent buildWeatherComponent(Context context) {
         return DaggerWeatherComponent.builder()
                 .networkModule(new NetworkModule())
                 .repositoryModule(new RepositoryModule())
                 .rxModule(new RxModule())
-                .weatherModule(new WeatherModule(applicationContext))
+                .weatherModule(new WeatherModule(context))
                 .build();
     }
 

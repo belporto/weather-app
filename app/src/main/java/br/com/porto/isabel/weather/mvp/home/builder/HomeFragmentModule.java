@@ -24,7 +24,7 @@ public class HomeFragmentModule {
     @Provides
     @HomeFragmentScope
     public HomeContract.ModelContract provideModule(UserCityRepository userCityRepository, WeatherAPI weatherAPI) {
-        return new HomeModel(userCityRepository, weatherAPI);
+        return new HomeModel(weatherAPI, userCityRepository);
     }
 
     @Provides
