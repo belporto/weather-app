@@ -5,8 +5,10 @@ import com.twistedequations.mvl.rx.AndroidRxSchedulers;
 
 import br.com.porto.isabel.weather.model.app.DailyInterface;
 import br.com.porto.isabel.weather.model.app.UserCity;
+import br.com.porto.isabel.weather.model.app.WeatherData;
 import rx.Observable;
 import rx.Subscription;
+import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 public class HomePresenter implements HomeContract.PresenterContract {
@@ -33,14 +35,8 @@ public class HomePresenter implements HomeContract.PresenterContract {
     private Subscription subscribeLoadWeatherData() {
         return Observable.just(null)
                 .doOnNext(aVoid -> mView.showProgress())
-                .observeOn(mSchedulers.network()) // network tread
-                .switchMap(userCity -> mModel.requestData()) //
-                .observeOn(mSchedulers.mainThread()) // main thread
-                .subscribe(weatherData -> {
-                    mView.showCurrentData(weatherData.getCurrent());
-                    mView.showForecast(weatherData.getForecast());
-                    mView.showContent();
-                }, e -> {
+                .switchMap(aVoid -> observableLoadData())// pull to refresh event
+                .subscribe(setDataViewBlock, e -> {
                     mView.showError();
                 });
     }
@@ -53,30 +49,17 @@ public class HomePresenter implements HomeContract.PresenterContract {
                 })
                 .doOnNext(aVoid -> mView.showProgress())
                 .doOnNext(userCity -> mModel.selectCity(userCity))
-                .observeOn(mSchedulers.network()) // network tread
-                .switchMap(userCity -> mModel.requestData())
-                .observeOn(mSchedulers.mainThread()) // main thread
-                .subscribe(weatherData -> {
-                    mView.showCurrentData(weatherData.getCurrent());
-                    mView.showForecast(weatherData.getForecast());
-                    mView.showContent();
-                }, e -> {
+                .switchMap(aVoid -> observableLoadData())// pull to refresh event
+                .subscribe(setDataViewBlock, e -> {
                     mView.showError();
                 });
     }
 
 
     private Subscription subscribeRefresh() {
-        return mView.observePullToRefresh() // pull to refresh event
-                .observeOn(mSchedulers.network()) // network tread
-                .switchMap(userCity -> mModel.requestData()) //
-                .observeOn(mSchedulers.mainThread()) // main thread
-                .subscribe(weatherData -> {
-                    mView.showCurrentData(weatherData.getCurrent());
-                    mView.showForecast(weatherData.getForecast());
-                    mView.showContent();
-                    mView.hideSwipe();
-                }, e -> {
+        return mView.observePullToRefresh()
+                .switchMap(aVoid -> observableLoadData())// pull to refresh event
+                .subscribe(setDataViewBlock, e -> {
                     mView.showError();
                     mView.hideSwipe();
                 });
@@ -106,4 +89,18 @@ public class HomePresenter implements HomeContract.PresenterContract {
         mView.showDailyInformation(daily, mModel.getCurrentCity());
     }
 
+    private Observable<WeatherData> observableLoadData(){
+        return Observable.just(null)
+                .observeOn(mSchedulers.network()) // network tread
+                .switchMap(userCity -> mModel.requestData()) //
+                .observeOn(mSchedulers.mainThread()); // main thread
+
+    }
+
+    private final Action1<WeatherData> setDataViewBlock = weatherData -> {
+        mView.showCurrentData(weatherData.getCurrent());
+        mView.showForecast(weatherData.getForecast());
+        mView.showContent();
+        mView.hideSwipe();
+    };
 }

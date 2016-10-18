@@ -55,7 +55,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         @Override
         public void onClick(View v) {
             DailyInterface daily = mDaily.get(getAdapterPosition());
-            mDailyCallback.onDailySelected(daily);
+           // mDailyCallback.onDailySelected(daily);
         }
     }
 
