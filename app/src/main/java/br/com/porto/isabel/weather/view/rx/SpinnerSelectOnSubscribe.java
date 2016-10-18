@@ -1,6 +1,5 @@
 package br.com.porto.isabel.weather.view.rx;
 
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -8,8 +7,6 @@ import android.widget.Spinner;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.MainThreadSubscription;
-
-import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
 
 final class SpinnerSelectOnSubscribe<T> implements Observable.OnSubscribe<T> {
 
@@ -38,7 +35,7 @@ final class SpinnerSelectOnSubscribe<T> implements Observable.OnSubscribe<T> {
     subscriber.add(new MainThreadSubscription() {
       @Override
       protected void onUnsubscribe() {
-        mSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) listener);
+        mSpinner.setOnItemSelectedListener(null);
       }
     });
   }
