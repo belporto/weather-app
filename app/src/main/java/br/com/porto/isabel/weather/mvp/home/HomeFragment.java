@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment implements HomeContract.ViewContract,
         Gson gson = new Gson();
         UserCityCacheStrategy cacheStrategy = new SharedPreferencesUserCityCacheStrategy(getContext(), gson);
         UserCityRepository userCityRepository = new UserCityCachedRepository(cacheStrategy, gson);
-        HomeModel model = new HomeModel(new RetrofitWeatherAPI(), userCityRepository);
+        HomeModel model = new HomeModel(new RetrofitWeatherAPI(getContext()), userCityRepository);
         mPresenter = new HomePresenter(this, model);
         model.setPresenter(mPresenter);
 

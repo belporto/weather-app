@@ -1,10 +1,14 @@
 package br.com.porto.isabel.weather.service.retrofit.openweather;
 
-import br.com.porto.isabel.weather.BuildConfig;
-import br.com.porto.isabel.weather.model.openweather.Current;
-import br.com.porto.isabel.weather.model.openweather.Forecast;
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+
 import br.com.porto.isabel.weather.model.app.CurrentInterface;
 import br.com.porto.isabel.weather.model.app.ForecastInterface;
+import br.com.porto.isabel.weather.model.openweather.Current;
+import br.com.porto.isabel.weather.model.openweather.Forecast;
 import br.com.porto.isabel.weather.service.WeatherAPI;
 import br.com.porto.isabel.weather.service.WeatherAPICallback;
 import retrofit2.Call;
@@ -18,8 +22,10 @@ public class RetrofitWeatherAPI implements WeatherAPI {
 
     private static final int NUM_OF_DAYS = 5;
     private WeatherService mService;
+    private Context mContext;
 
-    public RetrofitWeatherAPI() {
+    public RetrofitWeatherAPI(Context context) {
+        mContext = context;
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -32,7 +38,7 @@ public class RetrofitWeatherAPI implements WeatherAPI {
     public void getDaily(double lat, double lon, final WeatherAPICallback<ForecastInterface> cb) {
         Callback<Forecast> callback = new RetrofitCallback<>(cb);
 
-        Call<Forecast> call = mService.getDaily(BuildConfig.OPEN_WEATHER_MAP_API_KEY, lat, lon, NUM_OF_DAYS);
+        Call<Forecast> call = mService.getDaily(getApiKey(), lat, lon, NUM_OF_DAYS);
         call.enqueue(callback);
     }
 
@@ -41,7 +47,7 @@ public class RetrofitWeatherAPI implements WeatherAPI {
 
         Callback<Current> callback = new RetrofitCallback<>(cb);
 
-        Call<Current> call = mService.getCurrent(BuildConfig.OPEN_WEATHER_MAP_API_KEY, lat, lon);
+        Call<Current> call = mService.getCurrent(getApiKey(), lat, lon);
         call.enqueue(callback);
     }
 
@@ -66,6 +72,20 @@ public class RetrofitWeatherAPI implements WeatherAPI {
         public void onFailure(Call<Y> call, Throwable t) {
             mCb.onFailure();
         }
+    }
+
+    private String getApiKey() {
+        String apiKey = "";
+        try {
+            ApplicationInfo ai = mContext.getPackageManager().getApplicationInfo(
+                    mContext.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+            apiKey = bundle.getString("OPEN_WEATHER_KEY");
+        } catch (Exception e) {
+            //TODO:
+        }
+
+        return apiKey;
     }
 }
 

@@ -13,7 +13,11 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="<GOOGLE API KEY>" />
+            android:value="@string/google_places_api_key" />
+
+        <meta-data
+            android:name="OPEN_WEATHER_KEY"
+            android:value="@string/open_weather_api_key" />
 
         <activity
             android:name=".mvp.daily.DailyActivity"
